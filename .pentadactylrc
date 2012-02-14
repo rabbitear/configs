@@ -1,0 +1,24 @@
+" woddfellow2's Pentadactyl Config
+" by woddfellow2 | http://wlair.us.to/
+
+" Hide as much of the GUI as possible
+set guioptions=s
+set showtabline=never
+
+" Do not close window/exit Firefox when closing final tab
+set! browser.tabs.closeWindowWithLastTab=false
+
+" Autocomplete is slow; disabling
+set autocomplete=
+
+" Throw an error instead of performing a search without my consent
+set defsearch=
+
+" Disable Zoom Text Only keybindings
+map + <nop>
+map \- <nop>
+
+" FlashBlock^H^H^H^H^H^H^H^H^H^HNoScript integration
+loadplugins
+
+" vim: filetype=vimperator

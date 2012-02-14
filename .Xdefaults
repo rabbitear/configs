@@ -1,0 +1,98 @@
+! urxvt ------------------------------------------------------------------------
+
+URxvt.geometry: 80x25
+
+URxvt.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+URxvt.boldFont: 
+URxvt.italicFont: 
+URxvt.boldItalicFont: 
+
+URxvt.perl-ext-common: 
+URxvt.urgentOnBell: true
+
+URxvt.cursorUnderline: true
+URxvt.cursorBlink: true
+
+URxvt.scrollBar: false
+URxvt.internalBorder: 0
+
+! Colour Scheme {{{
+URxvt.background: #000000
+URxvt.foreground: #AAAAAA
+! Black
+URxvt.color0: #000000
+URxvt.color8: #555555
+! Red
+URxvt.color1: #AA0000
+URxvt.color9: #FF5555
+! Green
+URxvt.color2: #00AA00
+URxvt.color10: #55FF55
+! Yellow
+URxvt.color3: #AA5500
+URxvt.color11: #FFFF55
+! Blue
+URxvt.color4: #0000AA
+URxvt.color12: #5555FF
+! Magenta
+URxvt.color5: #AA00AA
+URxvt.color13: #FF55FF
+! Cyan
+URxvt.color6: #00AAAA
+URxvt.color14: #55FFFF
+! White
+URxvt.color7: #AAAAAA
+URxvt.color15: #FFFFFF
+! }}}
+
+! Emacs ------------------------------------------------------------------------
+
+emacs.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+emacs.verticalScrollBars: off
+
+! xterm ------------------------------------------------------------------------
+
+xterm*geometry: 80x25
+
+xterm*font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+xterm*allowBoldFonts: false
+
+xterm*bellIsUrgent: true
+
+xterm*cursorUnderLine: true
+xterm*cursorBlink: true
+
+xterm*internalBorder: 0
+
+! Colour Scheme {{{
+xterm*background: #000000
+xterm*foreground: #AAAAAA
+! Black
+xterm*color0: #000000
+xterm*color8: #555555
+! Red
+xterm*color1: #AA0000
+xterm*color9: #FF5555
+! Green
+xterm*color2: #00AA00
+xterm*color10: #55FF55
+! Yellow
+xterm*color3: #AA5500
+xterm*color11: #FFFF55
+! Blue
+xterm*color4: #0000AA
+xterm*color12: #5555FF
+! Magenta
+xterm*color5: #AA00AA
+xterm*color13: #FF55FF
+! Cyan
+xterm*color6: #00AAAA
+xterm*color14: #55FFFF
+! White
+xterm*color7: #AAAAAA
+xterm*color15: #FFFFFF
+! }}}
+
+! FvwmConsole ------------------------------------------------------------------
+FvwmConsole*VT100*geometry: 80x25
+FvwmConsole*font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*

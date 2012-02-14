@@ -1,0 +1,8 @@
+music_directory "~/audio/music"
+playlist_directory "~/.mpd/playlists"
+db_file "~/.mpd/mpd.db"
+log_file "~/.mpd/mpd.log"
+pid_file "~/.mpd/mpd.pid"
+user "woddf2"
+bind_to_address "127.0.0.1"
+port "6600"

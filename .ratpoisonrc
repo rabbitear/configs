@@ -1,0 +1,35 @@
+# woddfellow2's ratpoison Config
+# by woddfellow2 | http://wlair.us.to/
+
+# Features:
+# - Terminus font
+# - Borderless windows
+# - Central window gravity
+# - urxvt terminal emulator
+# - XScreenSaver lock keybinding
+# - Rudeness level set to 1
+# - Command and keybinding to switch to FVWM
+
+# Appearance
+set font Terminus-8
+set border 0
+set wingravity c
+
+# Use urxvt instead of xterm
+bind c exec urxvt
+bind C-c exec urxvt
+bind C-exclam colon exec urxvt -e 
+
+# Lock screen command directly inspired by GNU Screen's lockscreen keybinding
+bind x exec xscreensaver-command -lock
+
+# Rudeness
+rudeness 1
+
+# Switch to FVWM
+alias float tmpwm fvwm
+bind bar float
+
+# Startup
+banish
+alias startup exec urxvt -e screen -c ~/.screenrc-startup-256color -dRR

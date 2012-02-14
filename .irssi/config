@@ -1,0 +1,68 @@
+# woddfellow2's irssi Config
+# by woddfellow2 | http://wlair.us.to/
+
+# I do not normally edit this file manually, as doing so is discouraged.
+
+servers = (
+  {
+    address = "irc.freenode.net";
+    chatnet = "freenode";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.foonetic.net";
+    chatnet = "foonetic";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "yes";
+  },
+  {
+    address = "zach.dyndns-work.com";
+    chatnet = "zachdyndnsworkcom";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "yes";
+  }
+);
+
+chatnets = {
+  freenode = { type = "IRC"; };
+  foonetic = { type = "IRC"; };
+  zachdyndnsworkcom = { type = "IRC"; };
+};
+
+channels = (
+  {
+    name = "#archlinux-offtopic";
+    chatnet = "freenode";
+    autojoin = "Yes";
+  },
+  { name = "#xkcd"; chatnet = "foonetic"; autojoin = "Yes"; },
+  { name = "#main"; chatnet = "zachdyndnsworkcom"; autojoin = "Yes"; }
+);
+
+settings = {
+  core = {
+    timestamp_format = "%H:%M:%S";
+    quit_message = "http://wlair.us.to/";
+    real_name = "woddfellow2";
+    user_name = "woddf2";
+    nick = "woddf2";
+    log_timestamp = "%H:%M:%S ";
+  };
+  "fe-common/core" = {
+    autolog = "yes";
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+    bell_beeps = "yes";
+    autoclose_windows = "no";
+  };
+  "fe-text" = { actlist_sort = "refnum"; };
+  "irc/core" = {
+    part_message = "http://wlair.us.to/";
+    alternate_nick = "woddf2";
+  };
+};
+logs = { };
+aliases = { tp = "topic $C $* | $topic"; };

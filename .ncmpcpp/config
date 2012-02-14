@@ -1,0 +1,22 @@
+# woddfellow2's ncmpcpp Config
+# by woddfellow2 | http://wlair.us.to/
+
+# Tag editor and renaming files
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "~/audio/music"
+mpd_connection_timeout = "5"
+mpd_crossfade_time = "5"
+mpd_communication_mode = "notifications" (polling/notifications)
+
+# Change delay after playlist highlighting to 1 second
+playlist_disable_highlight_delay = "1"
+
+# Interface
+playlist_display_mode = "columns" (classic/columns)
+browser_display_mode = "columns" (classic/columns)
+search_engine_display_mode = "columns" (classic/columns)
+user_interface = "alternative" (classic/alternative)
+
+# Seconds in clock
+clock_display_seconds = "yes"

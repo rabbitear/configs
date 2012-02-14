@@ -1,0 +1,371 @@
+# woddfellow2's FVWM Config
+# by woddfellow2 | http://wlair.us.to/
+
+# Features:
+# - 9 virtual desktops
+# - Does not change virtual desktops when moving the pointer to an edge of the
+#   screen; we have the pager and keybindings for that
+# - Replacement UrgencyFunc and UrgencyDoneFunc functions
+# - Borderless maximised windows
+# - Always-on-top and always-on-bottom
+# - Click to focus
+# - Iconified windows at bottom right corner of the screen
+# - Does not focus a window unless one tells it to do so
+# - Terminus font
+# - Colour scheme: SeaGreen (menus, inactive windows), Firebrick (active
+#   windows), Yellow3 (urgency)
+# - Many keybindings, some inspired by awesome; all involving SUPER key
+# - Keybindings and menu items pointing to dmenu and XScreenSaver lock command
+# - Keybinding to toggle FvwmPager always on top
+# 
+# Dependencies:
+# - urxvt
+# - XScreenSaver
+# - dmenu
+# - GNU Screen (launched by RunOrRaiseTerm if it finds no urxvt windows)
+# - A keyboard with a Mod4/SUPER/Windows key: All keybindings in this config
+#   involve that key to reduce keybinding conflicts.
+
+# General ######################################################################
+
+# See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
+IgnoreModifiers L25
+
+# Virtual Desktops
+# The following 2 lines prevent it from changing virtual desktops when moving
+# the pointer to an edge of the screen
+EdgeScroll 0 0
+EdgeResistance 100
+
+DeskTopSize 3x3
+
+# Replacement Functions ########################################################
+
+# Do not move mouse pointer when focusing a window
+DestroyFunc WindowListFunc
+AddToFunc WindowListFunc
++ I Iconify off
++ I FlipFocus
++ I Raise
+
+# Urgency
+DestroyFunc UrgencyFunc
+AddToFunc UrgencyFunc
++ I ThisWindow (!Focused) WindowStyle HilightColorset 2
++ I ThisWindow (!Focused) WindowStyle Colorset 2
++ I ThisWindow (!Focused) Raise
++ I GotoPage $x $y
+
+DestroyFunc UrgencyDoneFunc
+AddToFunc UrgencyDoneFunc
++ I WindowStyle Colorset 0
++ I WindowStyle HilightColorset 1
+
+# Custom Functions #############################################################
+
+# Borderless maximised windows
+DestroyFunc FvwmFullMaximize
+AddToFunc FvwmFullMaximize
++ I ThisWindow (!Maximized) WindowStyle !Borders
++ I TestRc WindowStyle Borders
++ I RefreshWindow
++ I Maximize
++ I UpdateStyles
+
+# Funcion to focus, raise, and if necessary, de-iconify window;
+# this is mainly for the RunOrRaiseTerm function below
+DestroyFunc SelectWindow
+AddToFunc SelectWindow
++ I Focus
++ I Iconify false
++ I Raise
+
+# Run or raise urxvt (or create it with a geometry of 160*50, and attach
+# screen to it)
+DestroyFunc RunOrRaiseTerm
+AddToFunc RunOrRaiseTerm
++ I Next ("URxvt") SelectWindow
++ I TestRc (NoMatch) Exec exec \
+    urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
+
+# Without the following, iconified windows will not raise when double-clicked
+DestroyFunc FuncFvwmMoveOrIconify
+AddToFunc FuncFvwmMoveOrIconify
++ I Raise
++ M Move
++ D Iconify
+
+# Function to raise or lower FvwmPager
+DestroyFunc RaiseOrLowerFvwmPager
+AddToFunc RaiseOrLowerFvwmPager
++ I Next ("FvwmPager", Layer 6) Layer
++ I TestRc (NoMatch) Next ("FvwmPager") Layer 0 6
+
+# Always on Top
+DestroyFunc AlwaysOnTop
+AddToFunc AlwaysOnTop
++ I ThisWindow (Layer 6) Layer
++ I TestRc (NoMatch) ThisWindow Layer 0 6
+
+# Always on Bottom
+DestroyFunc AlwaysOnBottom
+AddToFunc AlwaysOnBottom
++ I ThisWindow (Layer 0) Layer
++ I TestRc (NoMatch) ThisWindow Layer 0 0
+
+# Menus ########################################################################
+
+# Root Menu
+DestroyMenu MenuFvwmRoot
+AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
++ "&T. $[gt.urxvt]" Exec exec urxvt
++ "&D. $[gt.dmenu]" Exec exec dmenu_run
++ "" Nop
++ "&L. $[gt.Lock Screen]" Exec exec xscreensaver-command -lock
++ "&X. $[gt.xkill]" Exec exec xkill
++ "" Nop
++ "&C. $[gt.FVWM Console]" Module FvwmConsole
++ "" Nop
++ "&E. $[gt.Leave]" Popup MenuGTFO
+
+DestroyMenu MenuGTFO
+AddToMenu MenuGTFO
++ "&R. $[gt.Restart FVWM]" Restart
++ "&Q. $[gt.Exit FVWM]" Quit
+
+# Window operations menu
+DestroyMenu MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps
++ "$[gt.&Move]" Move
++ "$[gt.&Resize]" Resize
++ "$[gt.R&aise]" Raise
++ "$[gt.&Lower]" Lower
++ "$[gt.(De)&Iconify]" Iconify
++ "$[gt.S&hade]" WindowShade
++ "$[gt.(Un)&Stick]" Stick
++ "$[gt.(Un)Ma&ximize]" FvwmFullMaximize
++ "" Nop
++ "$[gt.Always on &Top]" AlwaysOnTop
++ "$[gt.Always on &Bottom]" AlwaysOnBottom
++ "" Nop
++ "$[gt.I&nformation]" FvwmIdent
++ "" Nop
++ "$[gt.Move to &Workspace...]" Popup MenuMoveToWorkspace
++ "" Nop
++ "$[gt.&Delete]" Delete
++ "$[gt.&Close]" Close
++ "$[gt.Destroy]" Destroy
+
+# "Move to Workspace..." menu
+DestroyMenu MenuMoveToWorkspace
+AddToMenu MenuMoveToWorkspace
++ "&1. $[gt.Northwest]" MoveToPage 0 0
++ "&2. $[gt.North]" MoveToPage 1 0
++ "&3. $[gt.Northeast]" MoveToPage 2 0
++ "&4. $[gt.West]" MoveToPage 0 1
++ "&5. $[gt.Central]" MoveToPage 1 1
++ "&6. $[gt.East]" MoveToPage 2 1
++ "&7. $[gt.Southwest]" MoveToPage 0 2
++ "&8. $[gt.South]" MoveToPage 1 2
++ "&9. $[gt.Southeast]" MoveToPage 2 2
+
+# Style ########################################################################
+
+# Click to Focus
+Style * ClickToFocus
+
+# Put iconified windows in bottom-left corner of screen
+Style * IconBox 0 -10 -280 -1
+
+# Font; -*-terminus-*-*-*-*-12-*-*-*-*-*-*-* FTW
+DefaultFont -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+*FvwmIdent: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+
+# Colours
+Colorset 0 fg white, bg SeaGreen
+Colorset 1 fg white, bg Firebrick
+Colorset 2 fg black, bg Yellow3
+
+DefaultColorset 0
+
+# Inactive Window
+Style * Colorset 0
+
+# Active Window
+Style * HilightColorset 1
+
+# Menu
+MenuStyle * fvwm, MenuColorset 0
+
+# Display class in icon label instead of window title
+Style * IconTitleFormat %c
+
+# Do not focus new windows
+Style * !FPGrabFocus, !FPGrabFocusTransient
+DestroyFunc EWMHActivateWindowFunc
+
+# FvwmPager
+Style FvwmPager !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
+                ClickToFocus, FixedPosition
+*FvwmPager: Geometry -1-1
+*FvwmPager: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+
+# Application-specific style
+ImagePath /usr/share/pixmaps:/usr/share/icons
+
+Style URxvt !Title
+Style MPlayer !Title, Icon mplayer.png
+Style feh !Title
+Style Navigator !Title
+Style gvim Icon gvim.png
+Style Emacs !Title
+Style Xpdf Icon xpdf.xpm
+
+# Keybindings ##################################################################
+
+# Lock Screen (SUPER+ESC)
+Key Escape A 4 Exec exec xscreensaver-command -lock
+
+# dmenu (SUPER+R)
+Key r A 4 Exec exec dmenu_run
+
+# Open Terminal Emulator (SUPER+RETURN)
+Key Return A 4 Exec exec urxvt
+
+# Display Root Menu (SUPER+W)
+Key w A 4 Popup MenuFvwmRoot
+
+# Window Management (Minimise SUPER+N, Maximise SUPER+M, Close SUPER+SHIFT+C)
+Key c A S4 Close
+Key m A 4 FvwmFullMaximize
+Key n A 4 Iconify
+
+# Virtual Desktops (SUPER+[hjkl])
+Key h A 4 GotoPage -1p +0p
+Key j A 4 GotoPage +0p +1p
+Key k A 4 GotoPage +0p -1p
+Key l A 4 GotoPage +1p +0p
+# Numbers (SUPER+[1-9])
+Key 1 A 4 GotoPage 0 0
+Key 2 A 4 GotoPage 1 0
+Key 3 A 4 GotoPage 2 0
+Key 4 A 4 GotoPage 0 1
+Key 5 A 4 GotoPage 1 1
+Key 6 A 4 GotoPage 2 1
+Key 7 A 4 GotoPage 0 2
+Key 8 A 4 GotoPage 1 2
+Key 9 A 4 GotoPage 2 2
+# Move window to virtual desktop (SUPER+SHIFT+[1-9])
+Key 1 A S4 MoveToPage 0 0
+Key 2 A S4 MoveToPage 1 0
+Key 3 A S4 MoveToPage 2 0
+Key 4 A S4 MoveToPage 0 1
+Key 5 A S4 MoveToPage 1 1
+Key 6 A S4 MoveToPage 2 1
+Key 7 A S4 MoveToPage 0 2
+Key 8 A S4 MoveToPage 1 2
+Key 9 A S4 MoveToPage 2 2
+# Switch to most recent virtual desktop (SUPER+`)
+Key grave A 4 GotoPage prev
+
+# Scroll virtual desktop viewport (SHIFT+SUPER+[hjkl])
+Key h A S4 Scroll -10 +0
+Key j A S4 Scroll +0 +10
+Key k A S4 Scroll +0 -10
+Key l A S4 Scroll +10 +0
+
+# Place window again (SHIFT+SUPER+R)
+Key R A S4 PlaceAgain
+
+# Keybindings to move window (CTRL+SUPER+[hjkl])
+Key h A C4 Move w-1p keep
+Key j A C4 Move keep w1p
+Key k A C4 Move keep w-1p
+Key l A C4 Move w1p keep
+
+# ...and by 50 pixels (CTRL+SHIFT+SUPER+[hjkl])
+Key h A CS4 Move w-50p keep
+Key j A CS4 Move keep w50p
+Key k A CS4 Move keep w-50p
+Key l A CS4 Move w50p keep
+
+# Keybindings to resize window (META+SUPER+[hjkl])
+Key h A M4 Resize w-1c keep
+Key j A M4 Resize keep w1c
+Key k A M4 Resize keep w-1c
+Key l A M4 Resize w1c keep
+
+# ...and by 10 pixels (META+SHIFT+SUPER+[hjkl])
+Key h A MS4 Resize w-10c keep
+Key j A MS4 Resize keep w10c
+Key k A MS4 Resize keep w-10c
+Key l A MS4 Resize w10c keep
+
+# Keybindings to move window to corners (CTRL+META+SUPER+[hjkl])
+Key h A CM4 Move 0p 0p
+Key j A CM4 Move 0p -0p
+Key k A CM4 Move -0p 0p
+Key l A CM4 Move -0p -0p
+
+# ...and to the centre of the screen (CTRL+META+SUPER+;)
+Key semicolon A CM4 Move 50-50w 50-50w
+
+# Window list; replace META+TAB with SUPER+TAB
+Key Tab A M -
+Key Tab A 4 WindowList Root c c NoDeskSort
+MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 0
+
+# Display window operations menu (SUPER+SPACE)
+Key space A 4 Menu MenuFvwmWindowOps Nop
+
+# Restart and Exit FVWM (CTRL+SUPER+R and SUPER+SHIFT+Q, respectively)
+Key r A C4 Restart
+Key q A S4 Quit
+
+# Show/hide title bar (SUPER+F to hide, SHIFT+SUPER+F to reappear)
+Key f A 4 WindowStyle !Title
+Key F A S4 WindowStyle Title
+
+# Always on Top (SUPER+T)
+Key t A 4 AlwaysOnTop
+
+# Always on Bottom (SHIFT+SUPER+T)
+Key T A S4 AlwaysOnBottom
+
+# FvwmConsole (SUPER+X)
+Key x A 4 Module FvwmConsole
+
+# Display window information (SUPER+I)
+Key i A 4 FvwmIdent
+
+# Banish pointer to bottom-right corner of screen;
+# inspired by ratpoison's banish command
+Key b A 4 WindowId root 1 WarpToWindow 100 100
+
+# Run or raise urxvt (SUPER+E)
+Key e A 4 RunOrRaiseTerm
+
+# Keybinding to raise or lower FvwmPager (SUPER+Z)
+Key z A 4 RaiseOrLowerFvwmPager
+
+# Mouse Bindings ###############################################################
+
+# Middle-click root window to display window operations menu
+Mouse 2 R A Menu MenuFvwmWindowOps Nop
+
+# Right-click root window to display window list
+Mouse 3 R A WindowList
+
+# Again, without the following, iconified windows will not raise when
+# double-clicked
+Mouse 1 I A FuncFvwmMoveOrIconify
+
+# Title Bar Buttons
+Mouse 0 1 A Menu MenuFvwmWindowOps Close
+Mouse 0 3 A WindowShade
+Mouse 0 2 A FvwmFullMaximize
+Mouse 0 4 A Iconify
+
+# Modules (or rather Module :-P) ###############################################
+
+Module FvwmPager 0 0
