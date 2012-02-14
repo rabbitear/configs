@@ -2,9 +2,9 @@
 # by woddfellow2 | http://wlair.us.to/
 
 # Features:
-# - 9 virtual desktops
-# - Does not change virtual desktops when moving the pointer to an edge of the
-#   screen; we have the pager and keybindings for that
+# - 1 virtual desktop with 9 pages
+# - Does not change pages when moving the pointer to an edge of the screen;
+#   we have the pager and keybindings for that
 # - Replacement UrgencyFunc and UrgencyDoneFunc functions
 # - Borderless maximised windows
 # - Always-on-top and always-on-bottom
