@@ -4,12 +4,7 @@
 # XScreenSaver
 xscreensaver -no-splash &
 
-# Other
-numlockx on &
-rmdir ~/Desktop &
-
-# Eye candy
+# Set pointer
 xsetroot -cursor_name left_ptr &
-xsetroot -solid black &
 
 ratpoison
