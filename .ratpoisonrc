@@ -15,6 +15,9 @@ set font Terminus-8
 set border 0
 set wingravity c
 
+startup_message off
+set waitcursor 0
+
 # Use urxvt instead of xterm
 bind c exec urxvt
 bind C-c exec urxvt
@@ -32,4 +35,5 @@ bind bar float
 
 # Startup
 banish
-alias startup exec urxvt -e screen -c ~/.screenrc-startup-256color -dRR
+alias startup exec urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
+bind e startup
