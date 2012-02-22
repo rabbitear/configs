@@ -18,6 +18,13 @@ set defsearch=
 map + <nop>
 map \- <nop>
 
+" Disable F1 and ^S keybindings
+map <F1> <nop>
+map <C-s> <nop>
+
+" Easier access to :undo tab completion
+map U :undo <Tab>
+
 " FlashBlock^H^H^H^H^H^H^H^H^H^HNoScript integration
 loadplugins
 
