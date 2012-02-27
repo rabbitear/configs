@@ -5,6 +5,12 @@
 
 servers = (
   {
+    address = "bitlbee";
+    chatnet = "bitlbee";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  {
     address = "irc.freenode.net";
     chatnet = "freenode";
     port = "6667";
@@ -28,6 +34,7 @@ servers = (
 );
 
 chatnets = {
+  bitlbee = { type = "IRC"; };
   freenode = { type = "IRC"; };
   foonetic = { type = "IRC"; };
   zachdyndnsworkcom = { type = "IRC"; };
@@ -63,6 +70,19 @@ settings = {
     part_message = "http://wlair.us.to/";
     alternate_nick = "woddf2";
   };
+  "perl/core/scripts" = { screen_away_active = "yes"; };
 };
 logs = { };
 aliases = { tp = "topic $C $* | $topic"; };
+statusbar = {
+  default = {
+    prompt = {
+      items = {
+        uberprompt = { priority = "-1"; };
+        input = { priority = "10"; };
+      };
+      position = "100";
+    };
+  };
+};
+hilights = ( { text = "woddf2"; nick = "yes"; word = "yes"; } );

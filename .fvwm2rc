@@ -54,7 +54,6 @@ AddToFunc UrgencyFunc
 + I ThisWindow (!Focused) WindowStyle HilightColorset 2
 + I ThisWindow (!Focused) WindowStyle Colorset 2
 + I ThisWindow (!Focused) Raise
-+ I GotoPage $x $y
 
 DestroyFunc UrgencyDoneFunc
 AddToFunc UrgencyDoneFunc
