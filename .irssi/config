@@ -70,10 +70,14 @@ settings = {
     part_message = "http://wlair.us.to/";
     alternate_nick = "woddf2";
   };
-  "perl/core/scripts" = { screen_away_active = "yes"; };
+  "perl/core/scripts" = {
+    screen_away_active = "yes";
+    screen_away_window = "0";
+    xscreensaver_away_window = "0";
+  };
 };
 logs = { };
-aliases = { tp = "topic $C $* | $topic"; };
+aliases = { tp = "topic $C $* | $topic"; close = "window close"; };
 statusbar = {
   default = {
     prompt = {

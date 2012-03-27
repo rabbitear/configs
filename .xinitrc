@@ -7,4 +7,6 @@ xscreensaver -no-splash &
 # Set pointer
 xsetroot -cursor_name left_ptr &
 
-ratpoison
+until ratpoison; do true; done
+
+# vim: ft=sh

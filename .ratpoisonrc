@@ -1,19 +1,13 @@
 # woddfellow2's ratpoison Config
 # by woddfellow2 | http://wlair.us.to/
 
-# Features:
-# - Terminus font
-# - Borderless windows
-# - Central window gravity
-# - urxvt terminal emulator
-# - XScreenSaver lock keybinding
-# - Rudeness level set to 1
-# - Command and keybinding to switch to FVWM
-
 # Appearance
 set font Terminus-8
 set border 0
 set wingravity c
+set bgcolor black
+set fgcolor yellow
+set bargravity c
 
 startup_message off
 set waitcursor 0
@@ -26,14 +20,23 @@ bind C-exclam colon exec urxvt -e
 # Lock screen command directly inspired by GNU Screen's lockscreen keybinding
 bind x exec xscreensaver-command -lock
 
+# urxvt/screen, Firefox, and emacsclient keybindings
+bind asciitilde exec urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
+bind e exec emacsclient -alternate-editor="" -c
+bind M-f exec firefox
+
 # Rudeness
 rudeness 1
+
+# Resize 1 pixel at a time
+set resizeunit 1
+
+# Display window size(s) in window list
+set winfmt %n%s%t (%Wx%H)
 
 # Switch to FVWM
 alias float tmpwm fvwm
 bind bar float
 
-# Startup
+# Banish pointer
 banish
-alias startup exec urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
-bind e startup

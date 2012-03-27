@@ -1,3 +1,5 @@
+# Hey Emacs! This is a -*- Fvwm -*- file!
+
 # woddfellow2's FVWM Config
 # by woddfellow2 | http://wlair.us.to/
 
@@ -5,15 +7,14 @@
 # - 1 virtual desktop with 9 pages
 # - Does not change pages when moving the pointer to an edge of the screen;
 #   we have the pager and keybindings for that
-# - Replacement UrgencyFunc and UrgencyDoneFunc functions
+# - Replacement UrgencyFunc and UrgencyDoneFunc functions (changes colour of
+#   window decorations to Yellow3)
 # - Borderless maximised windows
 # - Always-on-top and always-on-bottom
 # - Click to focus
 # - Iconified windows at bottom right corner of the screen
 # - Does not focus a window unless one tells it to do so
 # - Terminus font
-# - Colour scheme: SeaGreen (menus, inactive windows), Firebrick (active
-#   windows), Yellow3 (urgency)
 # - Many keybindings, some inspired by awesome; all involving SUPER key
 # - Keybindings and menu items pointing to dmenu and XScreenSaver lock command
 # - Keybinding to toggle FvwmPager always on top
@@ -86,6 +87,18 @@ AddToFunc RunOrRaiseTerm
 + I Next ("URxvt") SelectWindow
 + I TestRc (NoMatch) Exec exec \
     urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
+
+# Run or raise emacsclient (or start the emacs daemon first)
+DestroyFunc RunOrRaiseEmacs
+AddToFunc RunOrRaiseEmacs
++ I Next ("Emacs") SelectWindow
++ I TestRc (NoMatch) Exec exec emacsclient -alternate-editor="" -c
+
+# Run or raise Mozilla Firefox
+DestroyFunc RunOrRaiseFirefox
+AddToFunc RunOrRaiseFirefox
++ I Next ("Navigator") SelectWindow
++ I TestRc (NoMatch) Exec exec firefox
 
 # Without the following, iconified windows will not raise when double-clicked
 DestroyFunc FuncFvwmMoveOrIconify
@@ -181,11 +194,11 @@ DefaultFont -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
 *FvwmIdent: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
 
 # Colours
-Colorset 0 fg white, bg SeaGreen
-Colorset 1 fg white, bg Firebrick
-Colorset 2 fg black, bg Yellow3
+Colorset 0 fg LightGray, bg DimGray
+Colorset 1 fg Black, bg Grey
+Colorset 2 fg Black, bg Yellow3
 
-DefaultColorset 0
+DefaultColorset 1
 
 # Inactive Window
 Style * Colorset 0
@@ -194,7 +207,7 @@ Style * Colorset 0
 Style * HilightColorset 1
 
 # Menu
-MenuStyle * fvwm, MenuColorset 0
+MenuStyle * fvwm, MenuColorset 1
 
 # Display class in icon label instead of window title
 Style * IconTitleFormat %c
@@ -312,7 +325,7 @@ Key semicolon A CM4 Move 50-50w 50-50w
 # Window list; replace META+TAB with SUPER+TAB
 Key Tab A M -
 Key Tab A 4 WindowList Root c c NoDeskSort
-MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 0
+MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 1
 
 # Display window operations menu (SUPER+SPACE)
 Key space A 4 Menu MenuFvwmWindowOps Nop
@@ -343,6 +356,15 @@ Key b A 4 WindowId root 1 WarpToWindow 100 100
 
 # Run or raise urxvt (SUPER+E)
 Key e A 4 RunOrRaiseTerm
+
+# Run or raise Emacs (SUPER+SHIFT+E)
+Key E A S4 RunOrRaiseEmacs
+
+# Run or raise Firefox (META+SUPER+1)
+Key 1 A M4 RunOrRaiseFirefox
+
+# Launch The GIMP (META+SUPER+2)
+Key 2 A M4 Exec exec gimp
 
 # Keybinding to raise or lower FvwmPager (SUPER+Z)
 Key z A 4 RaiseOrLowerFvwmPager

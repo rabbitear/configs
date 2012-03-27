@@ -7,8 +7,8 @@
 # Prompt stolen from Gentoo
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
 
+# vi/Vim FTW
 set -o vi
-
 export EDITOR="vim"
 
 # Aliases
@@ -31,7 +31,7 @@ alias dRR="screen -dRR"
 alias sxp="screen -x -p"
 alias sx="screen -x"
 alias sls="screen -ls"
-alias ompload="$HOME/scripts/ompload"
+alias e="emacsclient -alternate-editor=\"\" -nw"
 
 # Nasty hack involving screen and 256-colour terminal
 if [[ "$TERM" =~ "256color" ]]; then

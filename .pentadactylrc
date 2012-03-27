@@ -18,9 +18,12 @@ set defsearch=
 map + <nop>
 map \- <nop>
 
-" Disable F1 and ^S keybindings
+" Disable F1, ^S, and ^H keybindings (If I wanted to read the
+" Pentadactyl manual, I would have typed :help, and if I wanted to save
+" the current page, I would have typed :saveas.)
 map <F1> <nop>
 map <C-s> <nop>
+map <C-h> <nop>
 
 " Easier access to :undo tab completion
 map U :undo <Tab>
