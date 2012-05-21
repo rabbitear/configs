@@ -15,7 +15,7 @@ defscrollback 1000
 
 # Status line
 hardstatus off
-hardstatus string "screen: %n %t (%h)"
+hardstatus string "screen@%H: %n %t (%h)"
 
 # This way, if a background window beeps, I will not miss it;
 # note the ^G at the beginning

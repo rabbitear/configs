@@ -25,12 +25,8 @@ alias wx-radar="$HOME/scripts/wx-radar.sh"
 alias tweet-uptime="$HOME/scripts/tweet-uptime.sh"
 alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
 alias x="startx & exit"
-alias xx="startx ~/.xinitrc-fvwm & exit"
 alias c="clear"
 alias dRR="screen -dRR"
-alias sxp="screen -x -p"
-alias sx="screen -x"
-alias sls="screen -ls"
 alias e="emacsclient -alternate-editor=\"\" -nw"
 
 # Nasty hack involving screen and 256-colour terminal

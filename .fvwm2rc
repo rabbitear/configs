@@ -1,5 +1,3 @@
-# Hey Emacs! This is a -*- Fvwm -*- file!
-
 # woddfellow2's FVWM Config
 # by woddfellow2 | http://wlair.us.to/
 
@@ -85,8 +83,7 @@ AddToFunc SelectWindow
 DestroyFunc RunOrRaiseTerm
 AddToFunc RunOrRaiseTerm
 + I Next ("URxvt") SelectWindow
-+ I TestRc (NoMatch) Exec exec \
-    urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
++ I TestRc (NoMatch) Exec exec ~/scripts/start-znc-and-screen
 
 # Run or raise emacsclient (or start the emacs daemon first)
 DestroyFunc RunOrRaiseEmacs
@@ -189,9 +186,9 @@ Style * ClickToFocus
 # Put iconified windows in bottom-left corner of screen
 Style * IconBox 0 -10 -280 -1
 
-# Font; -*-terminus-*-*-*-*-12-*-*-*-*-*-*-* FTW
-DefaultFont -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
-*FvwmIdent: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+# Font; Terminus FTW
+DefaultFont -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+*FvwmIdent: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
 
 # Colours
 Colorset 0 fg LightGray, bg DimGray
@@ -220,7 +217,7 @@ DestroyFunc EWMHActivateWindowFunc
 Style FvwmPager !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
                 ClickToFocus, FixedPosition
 *FvwmPager: Geometry -1-1
-*FvwmPager: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+*FvwmPager: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
 
 # Application-specific style
 ImagePath /usr/share/pixmaps:/usr/share/icons
@@ -229,7 +226,6 @@ Style URxvt !Title, Icon Tango/scalable/apps/terminal.svg
 Style MPlayer !Title, Icon mplayer.png
 Style feh !Title, Icon Tango/scalable/mimetypes/image-x-generic.svg
 Style Navigator !Title
-Style gvim Icon gvim.png
 Style Emacs !Title
 Style Xpdf Icon xpdf.xpm
 
@@ -368,6 +364,12 @@ Key 2 A M4 Exec exec gimp
 
 # Keybinding to raise or lower FvwmPager (SUPER+Z)
 Key z A 4 RaiseOrLowerFvwmPager
+
+# Resize keybindings
+Key h A CMS4 Resize 80c 25c
+Key j A CMS4 Resize 160c 50c
+Key k A CMS4 Resize 1024p 768p
+Key l A CMS4 Resize 1152p 864p
 
 # Mouse Bindings ###############################################################
 

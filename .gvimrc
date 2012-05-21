@@ -2,10 +2,11 @@
 " by woddfellow2 | http://wlair.us.to/
 
 " Terminus FTW
-set guifont=Terminus\ 8
+set guifont=Terminus\ 12
 
 " Hide those space-wasting toolbars and use console dialogues
-set guioptions=c
+set guioptions=aic
 
 " Pointless eye candy
-colorscheme calmar256-dark
+set background=dark
+colorscheme solarized

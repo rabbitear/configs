@@ -10,4 +10,7 @@ set ruler
 " Disable splash screen
 set shortmess+=I
 
+" Disable dangerous keybinding
+map ZQ <Nop>
+
 command PostUpdate :read !~/scripts/post-update.sh

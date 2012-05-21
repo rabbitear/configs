@@ -2,7 +2,7 @@
 # by woddfellow2 | http://wlair.us.to/
 
 # Appearance
-set font Terminus-8
+set font Terminus-12
 set border 0
 set wingravity c
 set bgcolor black
@@ -11,6 +11,13 @@ set bargravity c
 
 startup_message off
 set waitcursor 0
+
+# Change prefix key to ^Z
+escape C-z
+unbind a
+unbind C-a
+bind t time
+bind C-t time
 
 # Use urxvt instead of xterm
 bind c exec urxvt
@@ -21,7 +28,7 @@ bind C-exclam colon exec urxvt -e
 bind x exec xscreensaver-command -lock
 
 # urxvt/screen, Firefox, and emacsclient keybindings
-bind asciitilde exec urxvt -geometry 160x50 -e screen -c ~/.screenrc-startup-256color -dRR
+bind asciitilde exec ~/scripts/start-znc-and-screen
 bind e exec emacsclient -alternate-editor="" -c
 bind M-f exec firefox
 
