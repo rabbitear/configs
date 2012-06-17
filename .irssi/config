@@ -5,16 +5,18 @@
 
 servers = (
   {
-    address = "bitlbee";
+    address = "localhost";
     chatnet = "bitlbee";
-    port = "6667";
+    port = "49152";
     autoconnect = "yes";
   },
   {
     address = "irc.freenode.net";
     chatnet = "freenode";
-    port = "6667";
+    port = "6697";
     password = "[REDACTED]";
+    use_ssl = "yes";
+    ssl_verify = "yes";
     autoconnect = "yes";
   },
   {
@@ -26,7 +28,7 @@ servers = (
   },
   {
     address = "zach.dyndns-work.com";
-    chatnet = "zachdyndnsworkcom";
+    chatnet = "mesonetwork";
     port = "6667";
     password = "[REDACTED]";
     autoconnect = "yes";
@@ -34,10 +36,13 @@ servers = (
 );
 
 chatnets = {
-  bitlbee = { type = "IRC"; };
+  bitlbee = {
+    type = "IRC";
+    autosendcmd = "/^msg &bitlbee identify [REDACTED]";
+  };
   freenode = { type = "IRC"; };
   foonetic = { type = "IRC"; };
-  zachdyndnsworkcom = { type = "IRC"; };
+  mesonetwork = { type = "IRC"; };
 };
 
 channels = (
@@ -47,39 +52,62 @@ channels = (
     autojoin = "Yes";
   },
   { name = "#xkcd"; chatnet = "foonetic"; autojoin = "Yes"; },
-  { name = "#main"; chatnet = "zachdyndnsworkcom"; autojoin = "Yes"; }
+  { name = "#main"; chatnet = "mesonetwork"; autojoin = "Yes"; }
 );
 
 settings = {
   core = {
-    timestamp_format = "%H:%M:%S";
+    timestamp_format = "%T";
     quit_message = "http://wlair.us.to/";
     real_name = "woddfellow2";
     user_name = "woddf2";
     nick = "woddf2";
-    log_timestamp = "%H:%M:%S ";
+    log_timestamp = "%T ";
   };
   "fe-common/core" = {
     autolog = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
     bell_beeps = "yes";
     autoclose_windows = "no";
+    theme = "default";
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "irc/core" = {
     part_message = "http://wlair.us.to/";
-    alternate_nick = "woddf2";
+    alternate_nick = "woddfellow2";
   };
   "perl/core/scripts" = {
     screen_away_active = "yes";
     screen_away_window = "0";
     xscreensaver_away_window = "0";
+    screen_away_message = "GNU Screen is detached";
+    xscreensaver_away_message = "XScreenSaver is locked";
+    bitlbee_typing_allwin = "yes";
+  };
+  "fe-common/irc" = {
+    netsplit_max_nicks = "0";
+    netsplit_nicks_hide_threshold = "0";
   };
 };
 logs = { };
 aliases = { tp = "topic $C $* | $topic"; close = "window close"; };
 statusbar = {
   default = {
+    window = {
+      items = {
+        barstart = { priority = "100"; };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        act = { priority = "10"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+        typing_notice = { };
+        join_notice = { };
+      };
+    };
+    topic = { };
     prompt = {
       items = {
         uberprompt = { priority = "-1"; };
@@ -89,4 +117,53 @@ statusbar = {
     };
   };
 };
-hilights = ( { text = "woddf2"; nick = "yes"; word = "yes"; } );
+hilights = (
+  { text = "woddf2"; nick = "yes"; word = "yes"; },
+  { text = "wodd"; nick = "yes"; word = "yes"; },
+  { text = "woodf"; nick = "yes"; word = "yes"; }
+);
+# There is an ignores section here that I keep private
+windows = {
+  1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
+  2 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "&bitlbee";
+        tag = "bitlbee";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#archlinux-offtopic";
+        tag = "freenode";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#xkcd";
+        tag = "foonetic";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#main";
+        tag = "mesonetwork";
+      }
+    );
+  };
+};
+mainwindows = { 3 = { first_line = "1"; lines = "58"; }; };
