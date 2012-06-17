@@ -17,6 +17,7 @@ alias grep="grep --color=auto"
 alias colours="$HOME/scripts/colours.sh"
 alias flv="$HOME/scripts/flash-video.sh"
 alias p3="ping -c 3"
+alias mp="mplayer"
 alias mp-overscan="mplayer -vf scale=320:240,crop=288:216 -aspect 4:3"
 alias mp-monaural="mplayer -af pan=1:0.5:0.5"
 alias yt="youtube-viewer"
@@ -24,12 +25,14 @@ alias wx="$HOME/scripts/weather.sh | less"
 alias wx-radar="$HOME/scripts/wx-radar.sh"
 alias tweet-uptime="$HOME/scripts/tweet-uptime.sh"
 alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
-alias x="startx & exit"
 alias c="clear"
 alias dRR="screen -dRR"
 alias e="emacsclient -alternate-editor=\"\" -nw"
 
-# Nasty hack involving screen and 256-colour terminal
-if [[ "$TERM" =~ "256color" ]]; then
-	export SCREENRC="$HOME/.screenrc-256color"
+if [[ "$TERM" == "linux" ]]; then
+	alias x="startx & exit"
+	alias wm="$HOME/scripts/select-wm"
 fi
+
+# Make exiting difficult
+export IGNOREEOF=9001

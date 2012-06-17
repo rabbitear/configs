@@ -4,9 +4,6 @@
 # XScreenSaver
 xscreensaver -no-splash &
 
-# Set pointer
-xsetroot -cursor_name left_ptr &
-
-until ratpoison; do true; done
+until ~/.dwm/dwm; do true; done
 
 # vim: ft=sh

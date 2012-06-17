@@ -83,7 +83,8 @@ AddToFunc SelectWindow
 DestroyFunc RunOrRaiseTerm
 AddToFunc RunOrRaiseTerm
 + I Next ("URxvt") SelectWindow
-+ I TestRc (NoMatch) Exec exec ~/scripts/start-znc-and-screen
++ I TestRc (NoMatch) Exec exec \
+    urxvt -sl 0 -geometry 160x50 -e screen -c ~/.screen/screenrc-startup -dRR
 
 # Run or raise emacsclient (or start the emacs daemon first)
 DestroyFunc RunOrRaiseEmacs
@@ -91,11 +92,11 @@ AddToFunc RunOrRaiseEmacs
 + I Next ("Emacs") SelectWindow
 + I TestRc (NoMatch) Exec exec emacsclient -alternate-editor="" -c
 
-# Run or raise Mozilla Firefox
+# Run or raise GNU IceCat
 DestroyFunc RunOrRaiseFirefox
 AddToFunc RunOrRaiseFirefox
 + I Next ("Navigator") SelectWindow
-+ I TestRc (NoMatch) Exec exec firefox
++ I TestRc (NoMatch) Exec exec icecat
 
 # Without the following, iconified windows will not raise when double-clicked
 DestroyFunc FuncFvwmMoveOrIconify
@@ -356,7 +357,7 @@ Key e A 4 RunOrRaiseTerm
 # Run or raise Emacs (SUPER+SHIFT+E)
 Key E A S4 RunOrRaiseEmacs
 
-# Run or raise Firefox (META+SUPER+1)
+# Run or raise IceCat (META+SUPER+1)
 Key 1 A M4 RunOrRaiseFirefox
 
 # Launch The GIMP (META+SUPER+2)

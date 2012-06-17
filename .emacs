@@ -28,12 +28,21 @@
 ;; Disable *scratch* buffer message
 (setq initial-scratch-message "")
 
-;; Disable echo area message at start
+;; Change echo area message at start
 (defun display-startup-echo-area-message ()
   (message ""))
 
 ;; Disable dangerous save-buffers-kill-terminal keybinding
 (global-unset-key (kbd "C-x C-c"))
+
+;; New previous-buffer and next-buffer keybindings, mainly as an exercise
+(global-set-key (kbd "C-x M-p") 'previous-buffer)
+(global-set-key (kbd "C-x M-n") 'next-buffer)
+
+;; Insert date of post update (BBCode)
+(defun post-update ()
+  (interactive)
+  (shell-command "~/scripts/post-update.sh" t))
 
 ;; Scroll conservatively
 (setq scroll-conservatively most-positive-fixnum)
@@ -52,7 +61,6 @@
 
 ;; Nyan Mode
 (require 'nyan-mode)
-(nyan-mode 1)
 
 ;; Twittering Mode
 (require 'twittering-mode)

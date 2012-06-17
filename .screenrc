@@ -20,3 +20,4 @@ hardstatus string "screen@%H: %n %t (%h)"
 # This way, if a background window beeps, I will not miss it;
 # note the ^G at the beginning
 bell_msg "^GBell in window %n"
+activity "^GActivity in window %n"

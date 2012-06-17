@@ -27,10 +27,10 @@ bind C-exclam colon exec urxvt -e
 # Lock screen command directly inspired by GNU Screen's lockscreen keybinding
 bind x exec xscreensaver-command -lock
 
-# urxvt/screen, Firefox, and emacsclient keybindings
-bind asciitilde exec ~/scripts/start-znc-and-screen
+# urxvt/screen, GNU IceCat, and emacsclient keybindings
+bind asciitilde exec urxvt -sl 0 -e screen -c ~/.screen/screenrc-startup -dRR
 bind e exec emacsclient -alternate-editor="" -c
-bind M-f exec firefox
+bind M-f exec icecat
 
 # Rudeness
 rudeness 1
