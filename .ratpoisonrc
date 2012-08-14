@@ -6,18 +6,11 @@ set font Terminus-12
 set border 0
 set wingravity c
 set bgcolor black
-set fgcolor yellow
+set fgcolor green
 set bargravity c
 
 startup_message off
 set waitcursor 0
-
-# Change prefix key to ^Z
-escape C-z
-unbind a
-unbind C-a
-bind t time
-bind C-t time
 
 # Use urxvt instead of xterm
 bind c exec urxvt
@@ -41,9 +34,14 @@ set resizeunit 1
 # Display window size(s) in window list
 set winfmt %n%s%t (%Wx%H)
 
-# Switch to FVWM
-alias float tmpwm fvwm
+# Switch to twm
+alias float tmpwm twm
 bind bar float
 
 # Banish pointer
 banish
+
+# xmodmap and Dvorak
+bind M-0 exec xmodmap ~/.Xmodmap
+bind M-1 exec setxkbmap us
+bind M-2 exec setxkbmap dvorak

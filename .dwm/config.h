@@ -54,7 +54,7 @@ static const Rule rules[] =
 // Layouts ---------------------------------------------------------------------
 static const float mfact = 0.50;
 static const int nmaster = 1;
-static const Bool resizehints = False;
+static const Bool resizehints = True;
 
 static const Layout layouts[] =
 {

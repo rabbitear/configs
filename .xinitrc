@@ -4,6 +4,6 @@
 # XScreenSaver
 xscreensaver -no-splash &
 
-until ~/.dwm/dwm; do true; done
+until ratpoison; do true; done
 
 # vim: ft=sh

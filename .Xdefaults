@@ -50,6 +50,7 @@ emacs.verticalScrollBars: off
 emacs.toolBar: off
 emacs.foreground: lightgray
 emacs.background: black
+emacs.internalBorder: 0
 
 ! FvwmConsole ------------------------------------------------------------------
 FvwmConsole*VT100*geometry: 80x25

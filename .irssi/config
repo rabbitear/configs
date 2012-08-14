@@ -27,8 +27,29 @@ servers = (
     autoconnect = "yes";
   },
   {
-    address = "zach.dyndns-work.com";
-    chatnet = "mesonetwork";
+    address = "irc.jtmal.net";
+    chatnet = "twister";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.oftc.net";
+    chatnet = "oftc";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "no";
+  },
+  {
+    address = "irc.rizon.net";
+    chatnet = "rizon";
+    port = "6667";
+    password = "[REDACTED]";
+    autoconnect = "no";
+  },
+  {
+    address = "irc.systemnet.info";
+    chatnet = "systemnet";
     port = "6667";
     password = "[REDACTED]";
     autoconnect = "yes";
@@ -42,17 +63,26 @@ chatnets = {
   };
   freenode = { type = "IRC"; };
   foonetic = { type = "IRC"; };
-  mesonetwork = { type = "IRC"; };
+  twister = { type = "IRC"; };
+  oftc = { type = "IRC"; };
+  rizon = { type = "IRC"; };
+  systemnet = { type = "IRC"; };
 };
 
 channels = (
+  { name = "#archlinux"; chatnet = "freenode"; autojoin = "No"; },
   {
     name = "#archlinux-offtopic";
     chatnet = "freenode";
     autojoin = "Yes";
   },
+  { name = "#defocus"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#freenode"; chatnet = "freenode"; autojoin = "No"; },
+  { name = "#wlair"; chatnet = "foonetic"; autojoin = "Yes"; },
   { name = "#xkcd"; chatnet = "foonetic"; autojoin = "Yes"; },
-  { name = "#main"; chatnet = "mesonetwork"; autojoin = "Yes"; }
+  { name = "#main"; chatnet = "twister"; autojoin = "Yes"; },
+  { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "No"; },
+  { name = "#bulbagarden"; chatnet = "systemnet"; autojoin = "Yes"; }
 );
 
 settings = {
@@ -66,10 +96,12 @@ settings = {
   };
   "fe-common/core" = {
     autolog = "yes";
-    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+    beep_msg_level = "MSGS DCC DCCMSGS HILIGHT";
     bell_beeps = "yes";
     autoclose_windows = "no";
     theme = "default";
+    autolog_level = "all";
+    window_history = "yes";
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "irc/core" = {
@@ -140,12 +172,32 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "#wlair";
+        tag = "foonetic";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#archlinux-offtopic";
         tag = "freenode";
       }
     );
   };
-  4 = {
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#defocus";
+        tag = "freenode";
+      }
+    );
+  };
+  6 = {
     items = (
       {
         type = "CHANNEL";
@@ -155,15 +207,31 @@ windows = {
       }
     );
   };
-  5 = {
+  7 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#main";
-        tag = "mesonetwork";
+        tag = "twister";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#bulbagarden";
+        tag = "systemnet";
       }
     );
   };
 };
-mainwindows = { 3 = { first_line = "1"; lines = "58"; }; };
+mainwindows = { 4 = { first_line = "1"; lines = "58"; }; };
+keyboard = (
+  { key = "meta-^I"; id = "command"; data = "window last"; },
+  { key = "meta-<"; id = "command"; data = "scrollback home"; },
+  { key = "meta->"; id = "command"; data = "scrollback end"; }
+);
+notifies = { };

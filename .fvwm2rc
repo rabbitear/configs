@@ -10,12 +10,12 @@
 # - Borderless maximised windows
 # - Always-on-top and always-on-bottom
 # - Click to focus
-# - Iconified windows at bottom right corner of the screen
+# - Iconified windows at bottom left corner of the screen
 # - Does not focus a window unless one tells it to do so
 # - Terminus font
 # - Many keybindings, some inspired by awesome; all involving SUPER key
 # - Keybindings and menu items pointing to dmenu and XScreenSaver lock command
-# - Keybinding to toggle FvwmPager always on top
+# - Keybinding to toggle FvwmButtons always on top
 # 
 # Dependencies:
 # - urxvt
@@ -78,13 +78,12 @@ AddToFunc SelectWindow
 + I Iconify false
 + I Raise
 
-# Run or raise urxvt (or create it with a geometry of 160*50, and attach
-# screen to it)
+# Run or raise urxvt (or create it, and attach screen to it)
 DestroyFunc RunOrRaiseTerm
 AddToFunc RunOrRaiseTerm
 + I Next ("URxvt") SelectWindow
 + I TestRc (NoMatch) Exec exec \
-    urxvt -sl 0 -geometry 160x50 -e screen -c ~/.screen/screenrc-startup -dRR
+    urxvt -sl 0 -e screen -c ~/.screen/screenrc-startup -dRR
 
 # Run or raise emacsclient (or start the emacs daemon first)
 DestroyFunc RunOrRaiseEmacs
@@ -105,11 +104,23 @@ AddToFunc FuncFvwmMoveOrIconify
 + M Move
 + D Iconify
 
-# Function to raise or lower FvwmPager
-DestroyFunc RaiseOrLowerFvwmPager
-AddToFunc RaiseOrLowerFvwmPager
-+ I Next ("FvwmPager", Layer 6) Layer
-+ I TestRc (NoMatch) Next ("FvwmPager") Layer 0 6
+# Function to raise or lower FvwmButtons
+DestroyFunc RaiseOrLowerFvwmButtons
+AddToFunc RaiseOrLowerFvwmButtons
++ I Next ("FvwmButtons", Layer 6) Layer
++ I TestRc (NoMatch) Next ("FvwmButtons") Layer 0 6
+
+# Function to raise or lower xclock
+DestroyFunc RaiseOrLowerXclock
+AddToFunc RaiseOrLowerXclock
++ I Next ("XClock", Layer 6) Layer
++ I TestRc (NoMatch) Next ("XClock") Layer 0 6
+
+# Raise or lower both of the above
+DestroyFunc RaiseOrLowerFvwmButtonsAndXclock
+AddToFunc RaiseOrLowerFvwmButtonsAndXclock
++ I RaiseOrLowerFvwmButtons
++ I RaiseOrLowerXclock
 
 # Always on Top
 DestroyFunc AlwaysOnTop
@@ -132,7 +143,9 @@ AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
 + "&D. $[gt.dmenu]" Exec exec dmenu_run
 + "" Nop
 + "&L. $[gt.Lock Screen]" Exec exec xscreensaver-command -lock
-+ "&X. $[gt.xkill]" Exec exec xkill
++ "&X. $[gt.xclock]" Exec exec \
+  xclock -update 1 -digital -strftime "%a %F %T" -geometry -1+1 \
+  -face Terminus-12 -bg black -fg green
 + "" Nop
 + "&C. $[gt.FVWM Console]" Module FvwmConsole
 + "" Nop
@@ -141,7 +154,11 @@ AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
 DestroyMenu MenuGTFO
 AddToMenu MenuGTFO
 + "&R. $[gt.Restart FVWM]" Restart
-+ "&Q. $[gt.Exit FVWM]" Quit
++ "&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
+
+DestroyMenu MenuGTFOExit
+AddToMenu MenuGTFOExit
++ "$[gt.Really Exit]" Quit
 
 # Window operations menu
 DestroyMenu MenuFvwmWindowOps
@@ -188,13 +205,13 @@ Style * ClickToFocus
 Style * IconBox 0 -10 -280 -1
 
 # Font; Terminus FTW
-DefaultFont -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
-*FvwmIdent: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+DefaultFont -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*
 
 # Colours
-Colorset 0 fg LightGray, bg DimGray
-Colorset 1 fg Black, bg Grey
+Colorset 0 fg White, bg SeaGreen
+Colorset 1 fg White, bg Firebrick
 Colorset 2 fg Black, bg Yellow3
+Colorset 3 fg White, bg SeaGreen
 
 DefaultColorset 1
 
@@ -205,7 +222,7 @@ Style * Colorset 0
 Style * HilightColorset 1
 
 # Menu
-MenuStyle * fvwm, MenuColorset 1
+MenuStyle * fvwm, MenuColorset 3
 
 # Display class in icon label instead of window title
 Style * IconTitleFormat %c
@@ -214,15 +231,46 @@ Style * IconTitleFormat %c
 Style * !FPGrabFocus, !FPGrabFocusTransient
 DestroyFunc EWMHActivateWindowFunc
 
-# FvwmPager
-Style FvwmPager !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
-                ClickToFocus, FixedPosition
-*FvwmPager: Geometry -1-1
-*FvwmPager: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+# FvwmIdent
+*FvwmIdent: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+*FvwmIdent: Back navy
+*FvwmIdent: Fore yellow
+
+# FvwmIconMan
+*FvwmIconMan: Background bisque3
+*FvwmIconMan: Foreground black
+*FvwmIconMan: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+*FvwmIconMan: Format "%t"
+*FvwmIconMan: Action Mouse 1 N sendcommand Focus
+*FvwmIconMan: Action Mouse 2 N sendcommand "Iconify"
+*FvwmIconMan: Action Mouse 3 N sendcommand "FvwmIdent"
+*FvwmIconMan: FollowFocus true
+*FvwmIconMan: IconButton up black maroon
+*FvwmIconMan: PlainButton up black bisque3
+*FvwmIconMan: SelectButton down black bisque3
+*FvwmIconMan: FocusButton up yellow firebrick
+*FvwmIconMan: FocusAndSelectButton down yellow firebrick
+*FvwmIconMan: ManagerGeometry 1x5
+
+# FvwmPager, do not display desk label
+*FvwmPager: Font "none"
+
+# FvwmButtons
+DestroyModuleConfig FvwmButtons: *
+Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon,
+      ClickToFocus, FixedPosition
+*FvwmButtons: Geometry 520x100-1-1
+*FvwmButtons: Back bisque3
+*FvwmButtons: (Frame 2, Padding 2 2, \
+              Container(Rows 1 Columns 9 Frame 1 Padding 10 0))
+*FvwmButtons: (7x1, Frame 2, Swallow "FvwmIconMan" "Module FvwmIconMan")
+*FvwmButtons: (2x1, Frame 2, Swallow "FvwmPager" "Module FvwmPager 0 0")
 
 # Application-specific style
 ImagePath /usr/share/pixmaps:/usr/share/icons
 
+Style XClock !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
+                ClickToFocus, FixedPosition
 Style URxvt !Title, Icon Tango/scalable/apps/terminal.svg
 Style MPlayer !Title, Icon mplayer.png
 Style feh !Title, Icon Tango/scalable/mimetypes/image-x-generic.svg
@@ -322,7 +370,7 @@ Key semicolon A CM4 Move 50-50w 50-50w
 # Window list; replace META+TAB with SUPER+TAB
 Key Tab A M -
 Key Tab A 4 WindowList Root c c NoDeskSort
-MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 1
+MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 3
 
 # Display window operations menu (SUPER+SPACE)
 Key space A 4 Menu MenuFvwmWindowOps Nop
@@ -363,12 +411,12 @@ Key 1 A M4 RunOrRaiseFirefox
 # Launch The GIMP (META+SUPER+2)
 Key 2 A M4 Exec exec gimp
 
-# Keybinding to raise or lower FvwmPager (SUPER+Z)
-Key z A 4 RaiseOrLowerFvwmPager
+# Keybinding to raise or lower FvwmButtons and xclock (SUPER+Z)
+Key z A 4 RaiseOrLowerFvwmButtonsAndXclock
 
 # Resize keybindings
 Key h A CMS4 Resize 80c 25c
-Key j A CMS4 Resize 160c 50c
+Key j A CMS4 Resize 80c 50c
 Key k A CMS4 Resize 1024p 768p
 Key l A CMS4 Resize 1152p 864p
 
@@ -392,4 +440,4 @@ Mouse 0 4 A Iconify
 
 # Modules (or rather Module :-P) ###############################################
 
-Module FvwmPager 0 0
+Module FvwmButtons

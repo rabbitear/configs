@@ -6,7 +6,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/twittering-mode-2.0.0")
 (add-to-list 'load-path "~/.emacs.d/lisp/nyan-mode")
 
-;; Disable those space-wasting toolbars
+;; Disable those space-wasting toolbars; they are for n00bs anyway
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 (menu-bar-mode -1)
@@ -25,19 +25,42 @@
 ;; Disable splash buffer
 (setq inhibit-startup-screen t)
 
-;; Disable *scratch* buffer message
-(setq initial-scratch-message "")
+;; Change *scratch* buffer message
+(setq initial-scratch-message ";; Emacs Scratch Buffer\n\n")
 
 ;; Change echo area message at start
 (defun display-startup-echo-area-message ()
-  (message ""))
+  (message "For plusgood info about FreeSoft, type C-h C-a."))
 
-;; Disable dangerous save-buffers-kill-terminal keybinding
-(global-unset-key (kbd "C-x C-c"))
+;; Make C-x C-c less dangerous
+(setq confirm-kill-emacs 'yes-or-no-p)
 
-;; New previous-buffer and next-buffer keybindings, mainly as an exercise
+;; Custom Keybindings (too many?)
 (global-set-key (kbd "C-x M-p") 'previous-buffer)
 (global-set-key (kbd "C-x M-n") 'next-buffer)
+
+(global-set-key (kbd "C-x M-b") 'ibuffer)
+
+(global-set-key (kbd "C-x M-c") 'compile)
+(global-set-key (kbd "C-x M-e") 'eval-region)
+
+(global-set-key (kbd "C-x M-s") 'eshell)
+(global-set-key (kbd "C-x M-m") 'gnus)
+(global-set-key (kbd "C-x M-w") 'w3m)
+(global-set-key (kbd "C-x M-t") 'twit)
+(global-set-key (kbd "C-x M-f") 'emms)
+
+(global-set-key (kbd "C-x M-a") 'ansi-term)
+
+(global-set-key (kbd "C-x M-d") 'image-dired)
+
+(global-set-key (kbd "C-x M-l") 'calendar)
+(global-set-key (kbd "C-x M-u") 'calculator)
+
+(defun switch-to-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+(global-set-key (kbd "C-x M-z") 'switch-to-scratch-buffer)
 
 ;; Insert date of post update (BBCode)
 (defun post-update ()
@@ -46,6 +69,9 @@
 
 ;; Scroll conservatively
 (setq scroll-conservatively most-positive-fixnum)
+
+;; Make ediff ratpoison-friendly
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; Save backup and autosave files to a specific directory
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -143,3 +169,7 @@
 (setq calendar-latitude 36.13139)
 (setq calendar-longitude -95.93722)
 (setq calendar-location-name "Tulsa, OK")
+
+;; SLIME
+(load (expand-file-name "~/apps/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
