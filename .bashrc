@@ -1,15 +1,18 @@
 # woddfellow2's bash Config
 # by woddfellow2 | http://wlair.us.to/
 
-# Check for an interactive session
+# Apparently I need to keep this here (Check for an interactive session)
 [ -z "$PS1" ] && return
 
-# Prompt stolen from Gentoo
+# Prompt Stolen from Gentoo
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] "
 
-# vi/Vim FTW
+# vi Keybindings
 set -o vi
+
+# Default Applications
 export EDITOR="vim"
+export PAGER="less"
 
 # Aliases
 alias ls='ls --color=auto'
@@ -28,11 +31,29 @@ alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
 alias c="clear"
 alias dRR="screen -dRR"
 alias e="emacsclient -alternate-editor=\"\" -nw"
+alias maharani="ssh -tC woddf2@maharani.meskarune.com screen -dRR"
 
-if [[ "$TERM" == "linux" ]]; then
+if [[ -z "$DISPLAY" ]] && [[ -z "$STY" ]]; then
 	alias x="startx & exit"
 	alias wm="$HOME/scripts/select-wm"
+	alias s="screen -c ~/.screen/screenrc-startup -dRR"
+	alias S="screen -c ~/.screen/screenrc-startup -d -m"
 fi
 
-# Make exiting difficult
+# If this were less naïve, it would check $TERMCAP to see if it can do title.
+if [[ -n "$DISPLAY" ]]; then
+	alias fixtitle="echo -e \"\e]0;\""
+fi
+
+# Make Exiting Difficult
 export IGNOREEOF=9001
+
+# Functions
+function sprunge ()
+{
+	$@ | curl -F 'sprunge=<-' http://sprunge.us
+}
+function rot13 ()
+{
+	$@ | tr a-zA-Z n-za-mN-ZA-M;
+}

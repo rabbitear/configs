@@ -7,6 +7,6 @@ set guifont=Terminus\ 12
 " Hide those space-wasting toolbars and use console dialogues
 set guioptions=aic
 
-" Pointless eye candy
+" Pointless eye candy is pointless
 set background=dark
 colorscheme solarized

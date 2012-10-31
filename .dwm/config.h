@@ -15,10 +15,10 @@ static const char selbordercolor[] = "#005577";
 static const char selbgcolor[] = "#005577";
 static const char selfgcolor[] = "#EEEEEE";
 
-static const unsigned int borderpx = 0;
+static const unsigned int borderpx = 1;
 static const unsigned int snap = 16;
 
-static const Bool showbar = False;
+static const Bool showbar = True;
 static const Bool topbar = True;
 
 // Tagging ---------------------------------------------------------------------
@@ -40,7 +40,7 @@ static const Rule rules[] =
 	{ "URxvt", NULL, NULL, 1 << 0, False, -1 },
 	{ "Gimp", NULL, NULL, 1 << 5, True, -1 },
 	{ "Firefox", NULL, NULL, 1 << 1, False, -1 },
-	{ "GNU IceCat", NULL, NULL, 1 << 1, False, -1 },
+	{ "Icecat", NULL, NULL, 1 << 1, False, -1 },
 	{ "Gvim", NULL, NULL, 1 << 2, False, -1 },
 	{ "feh", NULL, NULL, 1 << 3, False, -1 },
 	{ "Display", NULL, NULL, 1 << 3, True, -1 },
@@ -58,9 +58,9 @@ static const Bool resizehints = True;
 
 static const Layout layouts[] =
 {
-	{ "[M]", monocle },
 	{ "[]=", tile },
 	{ "><>", NULL },
+	{ "[M]", monocle },
 	{ "TTT", bstack },
 	{ "===", bstackhoriz },
 };
@@ -100,9 +100,9 @@ static Key keys[] =
 	{ MODKEY, XK_Return, zoom, {0} },
 	{ MODKEY, XK_Tab, view, {0} },
 	{ MODKEY|ShiftMask, XK_c, killclient, {0} },
-	{ MODKEY, XK_m, setlayout, {.v = &layouts[0]} },
-	{ MODKEY, XK_t, setlayout, {.v = &layouts[1]} },
-	{ MODKEY, XK_f, setlayout, {.v = &layouts[2]} },
+	{ MODKEY, XK_m, setlayout, {.v = &layouts[2]} },
+	{ MODKEY, XK_t, setlayout, {.v = &layouts[0]} },
+	{ MODKEY, XK_f, setlayout, {.v = &layouts[1]} },
 	{ MODKEY, XK_space, setlayout, {0} },
 	{ MODKEY|ShiftMask, XK_space, togglefloating, {0} },
 	{ MODKEY, XK_0, view, {.ui = ~0 } },
@@ -123,13 +123,12 @@ static Key keys[] =
 	{ MODKEY|ShiftMask, XK_q, quit, {0} },
 
 	// Custom Keybindings
-	{ MODKEY, XK_Escape, spawn, SHCMD("xscreensaver-command -lock") },
+	{ MODKEY, XK_Escape, spawn, SHCMD("xautolock -locknow") },
 	{ MODKEY|ShiftMask, XK_grave, spawn, 
-		SHCMD("urxvt -sl 0 -e screen -c ~/.screen/screenrc-startup -dRR") },
+		SHCMD("urxvt -sl 0 -e screen -dRR") },
 	{ MODKEY, XK_x, banish, {0} },
 	{ MODKEY|ShiftMask, XK_t, setlayout, {.v = &layouts[3]} },
 	{ MODKEY|ControlMask, XK_t, setlayout, {.v = &layouts[4]} },
-	{ MODKEY, XK_grave, spawn, SHCMD("~/scripts/dwm-time") },
 	{ MODKEY|ShiftMask, XK_f, spawn, SHCMD("icecat") },
 };
 

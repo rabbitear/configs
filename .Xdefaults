@@ -1,8 +1,10 @@
+#define FONT -*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*
+
 ! urxvt ------------------------------------------------------------------------
 
 URxvt.geometry: 80x25
 
-URxvt.font: -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+URxvt.font: FONT
 
 URxvt.perl-ext-common: 
 URxvt.urgentOnBell: true
@@ -11,7 +13,9 @@ URxvt.cursorUnderline: true
 URxvt.cursorBlink: true
 
 URxvt.scrollBar: false
-URxvt.internalBorder: 0
+
+URxvt.transparent: true
+URxvt.shading: 50
 
 ! Colour Scheme {{{
 URxvt.background: #000000
@@ -44,7 +48,7 @@ URxvt.color15: #FFFFFF
 
 ! Emacs ------------------------------------------------------------------------
 
-emacs.font: -*-terminus-*-*-*-*-16-*-*-*-*-*-*-*
+emacs.font: FONT
 emacs.menuBar: off
 emacs.verticalScrollBars: off
 emacs.toolBar: off
@@ -52,6 +56,11 @@ emacs.foreground: lightgray
 emacs.background: black
 emacs.internalBorder: 0
 
+! xautolock --------------------------------------------------------------------
+
+Xautolock.time: 1
+Xautolock.locker: slock
+
 ! FvwmConsole ------------------------------------------------------------------
 FvwmConsole*VT100*geometry: 80x25
-FvwmConsole*font: -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+FvwmConsole*font: FONT

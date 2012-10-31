@@ -17,11 +17,12 @@ bind c exec urxvt
 bind C-c exec urxvt
 bind C-exclam colon exec urxvt -e 
 
-# Lock screen command directly inspired by GNU Screen's lockscreen keybinding
-bind x exec xscreensaver-command -lock
+# Lock screen command directly inspired by that of GNU Screen
+alias lockscreen exec xautolock -locknow
+bind x lockscreen
 
 # urxvt/screen, GNU IceCat, and emacsclient keybindings
-bind asciitilde exec urxvt -sl 0 -e screen -c ~/.screen/screenrc-startup -dRR
+bind asciitilde exec urxvt -sl 0 -e screen -dRR
 bind e exec emacsclient -alternate-editor="" -c
 bind M-f exec icecat
 
@@ -45,3 +46,6 @@ banish
 bind M-0 exec xmodmap ~/.Xmodmap
 bind M-1 exec setxkbmap us
 bind M-2 exec setxkbmap dvorak
+
+# SSH into Meskarune's Linode
+alias maharani exec urxvt -sl 0 -e ssh -tC woddf2@maharani.meskarune.com screen -dRR
