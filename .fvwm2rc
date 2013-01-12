@@ -1,44 +1,13 @@
 # woddfellow2's FVWM Config
 # by woddfellow2 | http://wlair.us.to/
 
-# Features:
-# - 1 virtual desktop with 9 pages
-# - Does not change pages when moving the pointer to an edge of the screen;
-#   we have the pager and keybindings for that
-# - Replacement UrgencyFunc and UrgencyDoneFunc functions (changes colour of
-#   window decorations to Yellow3)
-# - Borderless maximised windows
-# - Always-on-top and always-on-bottom
-# - Click to focus
-# - Iconified windows at bottom left corner of the screen
-# - Does not focus a window unless one tells it to do so
-# - Terminus font
-# - Many keybindings, some inspired by awesome; all involving SUPER key
-# - Keybindings and menu items pointing to dmenu and XScreenSaver lock command
-# - Keybinding to toggle FvwmButtons always on top
-# 
-# Dependencies:
-# - urxvt
-# - XScreenSaver
-# - dmenu
-# - GNU Screen (launched by RunOrRaiseTerm if it finds no urxvt windows)
-# - A keyboard with a Mod4/SUPER/Windows key: All keybindings in this config
-#   involve that key to reduce keybinding conflicts.
-
-# General ######################################################################
-
 # See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
 IgnoreModifiers L25
 
 # Virtual Desktops
-# The following 2 lines prevent it from changing virtual desktops when moving
-# the pointer to an edge of the screen
-EdgeScroll 0 0
-EdgeResistance 100
-
 DeskTopSize 3x3
 
-# Replacement Functions ########################################################
+# Functions ####################################################################
 
 # Do not move mouse pointer when focusing a window
 DestroyFunc WindowListFunc
@@ -46,6 +15,22 @@ AddToFunc WindowListFunc
 + I Iconify off
 + I FlipFocus
 + I Raise
+
+# Iconify function
+DestroyFunc FuncFvwmMoveOrIconify
+AddToFunc FuncFvwmMoveOrIconify
++ I Raise
++ M Move
++ D Iconify
+
+DestroyFunc FuncFvwmMaximize
+AddToFunc FuncFvwmMaximize
++ M Maximize   0 100
++ H Maximize   0 100
++ C Maximize   0  80
++ D Maximize 100 100
+
+Mouse 1 I A FuncFvwmMoveOrIconify
 
 # Urgency
 DestroyFunc UrgencyFunc
@@ -59,108 +44,72 @@ AddToFunc UrgencyDoneFunc
 + I WindowStyle Colorset 0
 + I WindowStyle HilightColorset 1
 
-# Custom Functions #############################################################
-
-# Borderless maximised windows
-DestroyFunc FvwmFullMaximize
-AddToFunc FvwmFullMaximize
-+ I ThisWindow (!Maximized) WindowStyle !Borders
-+ I TestRc WindowStyle Borders
-+ I RefreshWindow
-+ I Maximize
-+ I UpdateStyles
-
-# Funcion to focus, raise, and if necessary, de-iconify window;
-# this is mainly for the RunOrRaiseTerm function below
-DestroyFunc SelectWindow
-AddToFunc SelectWindow
-+ I Focus
-+ I Iconify false
-+ I Raise
-
-# Run or raise urxvt (or create it, and attach screen to it)
-DestroyFunc RunOrRaiseTerm
-AddToFunc RunOrRaiseTerm
-+ I Next ("URxvt") SelectWindow
-+ I TestRc (NoMatch) Exec exec \
-    urxvt -sl 0 -e screen -c ~/.screen/screenrc-startup -dRR
-
-# Run or raise emacsclient (or start the emacs daemon first)
-DestroyFunc RunOrRaiseEmacs
-AddToFunc RunOrRaiseEmacs
-+ I Next ("Emacs") SelectWindow
-+ I TestRc (NoMatch) Exec exec emacsclient -alternate-editor="" -c
-
-# Run or raise GNU IceCat
-DestroyFunc RunOrRaiseFirefox
-AddToFunc RunOrRaiseFirefox
-+ I Next ("Navigator") SelectWindow
-+ I TestRc (NoMatch) Exec exec icecat
-
-# Without the following, iconified windows will not raise when double-clicked
-DestroyFunc FuncFvwmMoveOrIconify
-AddToFunc FuncFvwmMoveOrIconify
-+ I Raise
-+ M Move
-+ D Iconify
-
-# Function to raise or lower FvwmButtons
-DestroyFunc RaiseOrLowerFvwmButtons
-AddToFunc RaiseOrLowerFvwmButtons
-+ I Next ("FvwmButtons", Layer 6) Layer
-+ I TestRc (NoMatch) Next ("FvwmButtons") Layer 0 6
-
-# Function to raise or lower xclock
-DestroyFunc RaiseOrLowerXclock
-AddToFunc RaiseOrLowerXclock
-+ I Next ("XClock", Layer 6) Layer
-+ I TestRc (NoMatch) Next ("XClock") Layer 0 6
-
-# Raise or lower both of the above
-DestroyFunc RaiseOrLowerFvwmButtonsAndXclock
-AddToFunc RaiseOrLowerFvwmButtonsAndXclock
-+ I RaiseOrLowerFvwmButtons
-+ I RaiseOrLowerXclock
-
-# Always on Top
-DestroyFunc AlwaysOnTop
-AddToFunc AlwaysOnTop
-+ I ThisWindow (Layer 6) Layer
-+ I TestRc (NoMatch) ThisWindow Layer 0 6
-
-# Always on Bottom
-DestroyFunc AlwaysOnBottom
-AddToFunc AlwaysOnBottom
-+ I ThisWindow (Layer 0) Layer
-+ I TestRc (NoMatch) ThisWindow Layer 0 0
-
 # Menus ########################################################################
 
 # Root Menu
 DestroyMenu MenuFvwmRoot
 AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
-+ "&T. $[gt.urxvt]" Exec exec urxvt
-+ "&D. $[gt.dmenu]" Exec exec dmenu_run
++ "&T. URxvt" Exec exec urxvt
 + "" Nop
-+ "&L. $[gt.Lock Screen]" Exec exec xscreensaver-command -lock
-+ "&X. $[gt.xclock]" Exec exec \
-  xclock -update 1 -digital -strftime "%a %F %T" -geometry -1+1 \
-  -face Terminus-12 -bg black -fg green
++ "&S. GNU Screen" Exec exec urxvt -sl 0 -e screen -dRR
++ "&R. $[gt.Remote Logins]" Popup MenuFvwmLogins
 + "" Nop
-+ "&C. $[gt.FVWM Console]" Module FvwmConsole
++ "&A. $[gt.Applications]" Popup MenuFvwmUtilities
 + "" Nop
-+ "&E. $[gt.Leave]" Popup MenuGTFO
++ "&F. $[gt.FVWM]" Popup MenuFvwmFvwm
++ "&L. $[gt.Wallpaper]" Popup MenuWallpaper
++ "&W. $[gt.Window Ops]" Popup MenuFvwmWindowOps
++ "" Nop
++ "&X. $[gt.Leave]" Popup MenuGTFO
 
-DestroyMenu MenuGTFO
-AddToMenu MenuGTFO
-+ "&R. $[gt.Restart FVWM]" Restart
-+ "&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
+# Remote Logins Menu
+DestroyMenu MenuFvwmLogins
+AddToMenu MenuFvwmLogins
++ "&volunteer" \
+  Exec exec urxvt -sl 0 -title volunteer -hold -e ssh -t volunteer screen -dRR
++ "&genesis" \
+  Exec exec urxvt -sl 0 -title genesis -hold -e ssh -t genesis screen -dRR
++ "&maharani" Exec exec \
+  urxvt -sl 0 -title maharani -hold -e ssh -tC 66.175.208.202 screen -dRR
 
-DestroyMenu MenuGTFOExit
-AddToMenu MenuGTFOExit
-+ "$[gt.Really Exit]" Quit
+# Applications Menu
+DestroyMenu MenuFvwmUtilities
+AddToMenu MenuFvwmUtilities
++ "g&Vim" Exec exec gvim
++ "&Emacs" Exec exec emacs
++ "" Nop
++ "Sea&Monkey" Exec exec seamonkey
++ "" Nop
++ "&Audacious" Exec exec audacious
++ "The &GIMP" Exec exec gimp
++ "" Nop
++ "&LBreakout2" Exec exec lbreakout2
++ "&Spider" Exec exec spider
++ "&UAE" Exec exec uae
 
-# Window operations menu
+# Wallpaper Menu
+DestroyMenu MenuWallpaper
+AddToMenu MenuWallpaper
++ "&Stabilis" Exec exec \
+  feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg
++ "S&pectrum" Exec exec \
+  feh --bg-center ~/img/wallpaper/02301_spectrum_1024x768.jpg
++ "IntelliStar 200&7" Exec exec feh --bg-scale ~/img/IS\ Graphics/domestic.tif
++ "IntelliStar 200&5" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticAlmanac.tif
++ "IntelliStar &Bulletin" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticBulletin.tif
++ "IntelliStar &Marine" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticMarine.tif
++ "IntelliStar S&ki" Exec exec feh --bg-scale ~/img/IS\ Graphics/domesticSki.tif
+
+# FVWM Menu
+DestroyMenu MenuFvwmFvwm
+AddToMenu MenuFvwmFvwm
++ "Fvwm&Console" Module FvwmConsole
++ "&Edit Config" Exec exec gvim ~/.fvwm/.fvwm2rc
+
+# Window Ops Menu
 DestroyMenu MenuFvwmWindowOps
 AddToMenu MenuFvwmWindowOps
 + "$[gt.&Move]" Move
@@ -170,10 +119,7 @@ AddToMenu MenuFvwmWindowOps
 + "$[gt.(De)&Iconify]" Iconify
 + "$[gt.S&hade]" WindowShade
 + "$[gt.(Un)&Stick]" Stick
-+ "$[gt.(Un)Ma&ximize]" FvwmFullMaximize
-+ "" Nop
-+ "$[gt.Always on &Top]" AlwaysOnTop
-+ "$[gt.Always on &Bottom]" AlwaysOnBottom
++ "$[gt.(Un)Ma&ximize]" FuncFvwmMaximize
 + "" Nop
 + "$[gt.I&nformation]" FvwmIdent
 + "" Nop
@@ -196,16 +142,48 @@ AddToMenu MenuMoveToWorkspace
 + "&8. $[gt.South]" MoveToPage 1 2
 + "&9. $[gt.Southeast]" MoveToPage 2 2
 
+# Leave Menu
+DestroyMenu MenuGTFO
+AddToMenu MenuGTFO
++ "&X. $[gt.XScreenSaver]" Exec exec xscreensaver-command -lock
++ "&L. $[gt.xlock]" Exec exec xlock
++ "" Nop
++ "&R. $[gt.Restart FVWM]" Restart
++ "&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
+
+# Exit FVWM Menu
+DestroyMenu MenuGTFOExit
+AddToMenu MenuGTFOExit
++ "$[gt.Really Exit]" Quit
+
+# Mouse Bindings ###############################################################
+
+Mouse 0 1 A Menu MenuFvwmWindowOps Close
+Mouse 0 3 A WindowShade
+Mouse 0 2 A FuncFvwmMaximize
+Mouse 0 4 A Iconify
+
+Mouse 3 TSIF A RaiseLower
+
+Mouse 2 R A Menu MenuFvwmWindowOps Nop
+Mouse 3 R A WindowList
+
+# Keybindings ##################################################################
+
+# Window list; replace META+TAB with SUPER+TAB
+Key Tab A M -
+Key Tab A 4 WindowList Root c c NoDeskSort
+MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 3
+
+Key space A 4 Menu MenuFvwmRoot
+
 # Style ########################################################################
 
-# Click to Focus
-Style * ClickToFocus
+Style * SloppyFocus
 
-# Put iconified windows in bottom-left corner of screen
 Style * IconBox 0 -10 -280 -1
 
-# Font; Terminus FTW
-DefaultFont -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*
+DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 
 # Colours
 Colorset 0 fg White, bg SeaGreen
@@ -214,230 +192,66 @@ Colorset 2 fg Black, bg Yellow3
 Colorset 3 fg White, bg SeaGreen
 
 DefaultColorset 1
-
-# Inactive Window
 Style * Colorset 0
-
-# Active Window
 Style * HilightColorset 1
-
-# Menu
 MenuStyle * fvwm, MenuColorset 3
 
-# Display class in icon label instead of window title
-Style * IconTitleFormat %c
+# Look for icons in /usr/share/pixmaps and /usr/share/icons
+ImagePath /usr/share/pixmaps:/usr/share/icons
 
-# Do not focus new windows
-Style * !FPGrabFocus, !FPGrabFocusTransient
-DestroyFunc EWMHActivateWindowFunc
+# Application-specific Style
+Style *rxvt Icon Tango/scalable/apps/terminal.svg, \
+      MiniIcon Tango/16x16/apps/terminal.png, MWMBorder, MWMButtons
+Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 
 # FvwmIdent
-*FvwmIdent: Font -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
 *FvwmIdent: Back navy
 *FvwmIdent: Fore yellow
+*FvwmIdent: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+
+# FvwmPager
+*FvwmPager: Font "none"
+*FvwmPager: MiniIcons
+*FvwmPager: Balloons
+*FvwmPager: BalloonColorset * 2
 
 # FvwmIconMan
-*FvwmIconMan: Background bisque3
-*FvwmIconMan: Foreground black
-*FvwmIconMan: Font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
-*FvwmIconMan: Format "%t"
+*FvwmIconMan: ManagerGeometry 1x7
 *FvwmIconMan: Action Mouse 1 N sendcommand Focus
 *FvwmIconMan: Action Mouse 2 N sendcommand "Iconify"
 *FvwmIconMan: Action Mouse 3 N sendcommand "FvwmIdent"
-*FvwmIconMan: FollowFocus true
+*FvwmIconMan: Background SeaGreen
+*FvwmIconMan: Foreground white
 *FvwmIconMan: IconButton up black maroon
-*FvwmIconMan: PlainButton up black bisque3
-*FvwmIconMan: SelectButton down black bisque3
+*FvwmIconMan: PlainButton up white SeaGreen
+*FvwmIconMan: SelectButton down white SeaGreen
 *FvwmIconMan: FocusButton up yellow firebrick
 *FvwmIconMan: FocusAndSelectButton down yellow firebrick
-*FvwmIconMan: ManagerGeometry 1x5
-
-# FvwmPager, do not display desk label
-*FvwmPager: Font "none"
+*FvwmIconMan: Font -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*
 
 # FvwmButtons
 DestroyModuleConfig FvwmButtons: *
-Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon,
-      ClickToFocus, FixedPosition
-*FvwmButtons: Geometry 520x100-1-1
-*FvwmButtons: Back bisque3
-*FvwmButtons: (Frame 2, Padding 2 2, \
-              Container(Rows 1 Columns 9 Frame 1 Padding 10 0))
-*FvwmButtons: (7x1, Frame 2, Swallow "FvwmIconMan" "Module FvwmIconMan")
-*FvwmButtons: (2x1, Frame 2, Swallow "FvwmPager" "Module FvwmPager 0 0")
+Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
+      ClickToFocus, FixedPosition, BorderWidth 5, !Handles
+*FvwmButtons: Back SeaGreen
+*FvwmButtons: Rows 8
+*FvwmButtons: Columns 1
+*FvwmButtons: Geometry 191x300-0+0
+*FvwmButtons: (1x4, Swallow "FvwmPager" `Module FvwmPager 0 0`)
+*FvwmButtons: (1x1, Swallow "xclock" `Exec exec xclock -update 1 -digital \
+       -twentyfour -strftime \"%F %T\" -face Fixed-11 -bg black -fg green`)
+*FvwmButtons: (1x3, Swallow "FvwmIconMan" `Module FvwmIconMan`)
 
-# Application-specific style
-ImagePath /usr/share/pixmaps:/usr/share/icons
+# FvwmBanner
+Style FvwmBanner StaysOnTop, !Title
 
-Style XClock !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
-                ClickToFocus, FixedPosition
-Style URxvt !Title, Icon Tango/scalable/apps/terminal.svg
-Style MPlayer !Title, Icon mplayer.png
-Style feh !Title, Icon Tango/scalable/mimetypes/image-x-generic.svg
-Style Navigator !Title
-Style Emacs !Title
-Style Xpdf Icon xpdf.xpm
+# Startup Applications #########################################################
 
-# Keybindings ##################################################################
+AddToFunc StartFunction
++ I Module FvwmAnimate
++ I Module FvwmBanner
++ I Module FvwmButtons
 
-# Lock Screen (SUPER+ESC)
-Key Escape A 4 Exec exec xscreensaver-command -lock
-
-# dmenu (SUPER+R)
-Key r A 4 Exec exec dmenu_run
-
-# Open Terminal Emulator (SUPER+RETURN)
-Key Return A 4 Exec exec urxvt
-
-# Display Root Menu (SUPER+W)
-Key w A 4 Popup MenuFvwmRoot
-
-# Window Management (Minimise SUPER+N, Maximise SUPER+M, Close SUPER+SHIFT+C)
-Key c A S4 Close
-Key m A 4 FvwmFullMaximize
-Key n A 4 Iconify
-
-# Virtual Desktops (SUPER+[hjkl])
-Key h A 4 GotoPage -1p +0p
-Key j A 4 GotoPage +0p +1p
-Key k A 4 GotoPage +0p -1p
-Key l A 4 GotoPage +1p +0p
-# Numbers (SUPER+[1-9])
-Key 1 A 4 GotoPage 0 0
-Key 2 A 4 GotoPage 1 0
-Key 3 A 4 GotoPage 2 0
-Key 4 A 4 GotoPage 0 1
-Key 5 A 4 GotoPage 1 1
-Key 6 A 4 GotoPage 2 1
-Key 7 A 4 GotoPage 0 2
-Key 8 A 4 GotoPage 1 2
-Key 9 A 4 GotoPage 2 2
-# Move window to virtual desktop (SUPER+SHIFT+[1-9])
-Key 1 A S4 MoveToPage 0 0
-Key 2 A S4 MoveToPage 1 0
-Key 3 A S4 MoveToPage 2 0
-Key 4 A S4 MoveToPage 0 1
-Key 5 A S4 MoveToPage 1 1
-Key 6 A S4 MoveToPage 2 1
-Key 7 A S4 MoveToPage 0 2
-Key 8 A S4 MoveToPage 1 2
-Key 9 A S4 MoveToPage 2 2
-# Switch to most recent virtual desktop (SUPER+`)
-Key grave A 4 GotoPage prev
-
-# Scroll virtual desktop viewport (SHIFT+SUPER+[hjkl])
-Key h A S4 Scroll -10 +0
-Key j A S4 Scroll +0 +10
-Key k A S4 Scroll +0 -10
-Key l A S4 Scroll +10 +0
-
-# Place window again (SHIFT+SUPER+R)
-Key R A S4 PlaceAgain
-
-# Keybindings to move window (CTRL+SUPER+[hjkl])
-Key h A C4 Move w-1p keep
-Key j A C4 Move keep w1p
-Key k A C4 Move keep w-1p
-Key l A C4 Move w1p keep
-
-# ...and by 50 pixels (CTRL+SHIFT+SUPER+[hjkl])
-Key h A CS4 Move w-50p keep
-Key j A CS4 Move keep w50p
-Key k A CS4 Move keep w-50p
-Key l A CS4 Move w50p keep
-
-# Keybindings to resize window (META+SUPER+[hjkl])
-Key h A M4 Resize w-1c keep
-Key j A M4 Resize keep w1c
-Key k A M4 Resize keep w-1c
-Key l A M4 Resize w1c keep
-
-# ...and by 10 pixels (META+SHIFT+SUPER+[hjkl])
-Key h A MS4 Resize w-10c keep
-Key j A MS4 Resize keep w10c
-Key k A MS4 Resize keep w-10c
-Key l A MS4 Resize w10c keep
-
-# Keybindings to move window to corners (CTRL+META+SUPER+[hjkl])
-Key h A CM4 Move 0p 0p
-Key j A CM4 Move 0p -0p
-Key k A CM4 Move -0p 0p
-Key l A CM4 Move -0p -0p
-
-# ...and to the centre of the screen (CTRL+META+SUPER+;)
-Key semicolon A CM4 Move 50-50w 50-50w
-
-# Window list; replace META+TAB with SUPER+TAB
-Key Tab A M -
-Key Tab A 4 WindowList Root c c NoDeskSort
-MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 3
-
-# Display window operations menu (SUPER+SPACE)
-Key space A 4 Menu MenuFvwmWindowOps Nop
-
-# Restart and Exit FVWM (CTRL+SUPER+R and SUPER+SHIFT+Q, respectively)
-Key r A C4 Restart
-Key q A S4 Quit
-
-# Show/hide title bar (SUPER+F to hide, SHIFT+SUPER+F to reappear)
-Key f A 4 WindowStyle !Title
-Key F A S4 WindowStyle Title
-
-# Always on Top (SUPER+T)
-Key t A 4 AlwaysOnTop
-
-# Always on Bottom (SHIFT+SUPER+T)
-Key T A S4 AlwaysOnBottom
-
-# FvwmConsole (SUPER+X)
-Key x A 4 Module FvwmConsole
-
-# Display window information (SUPER+I)
-Key i A 4 FvwmIdent
-
-# Banish pointer to bottom-right corner of screen;
-# inspired by ratpoison's banish command
-Key b A 4 WindowId root 1 WarpToWindow 100 100
-
-# Run or raise urxvt (SUPER+E)
-Key e A 4 RunOrRaiseTerm
-
-# Run or raise Emacs (SUPER+SHIFT+E)
-Key E A S4 RunOrRaiseEmacs
-
-# Run or raise IceCat (META+SUPER+1)
-Key 1 A M4 RunOrRaiseFirefox
-
-# Launch The GIMP (META+SUPER+2)
-Key 2 A M4 Exec exec gimp
-
-# Keybinding to raise or lower FvwmButtons and xclock (SUPER+Z)
-Key z A 4 RaiseOrLowerFvwmButtonsAndXclock
-
-# Resize keybindings
-Key h A CMS4 Resize 80c 25c
-Key j A CMS4 Resize 80c 50c
-Key k A CMS4 Resize 1024p 768p
-Key l A CMS4 Resize 1152p 864p
-
-# Mouse Bindings ###############################################################
-
-# Middle-click root window to display window operations menu
-Mouse 2 R A Menu MenuFvwmWindowOps Nop
-
-# Right-click root window to display window list
-Mouse 3 R A WindowList
-
-# Again, without the following, iconified windows will not raise when
-# double-clicked
-Mouse 1 I A FuncFvwmMoveOrIconify
-
-# Title Bar Buttons
-Mouse 0 1 A Menu MenuFvwmWindowOps Close
-Mouse 0 3 A WindowShade
-Mouse 0 2 A FvwmFullMaximize
-Mouse 0 4 A Iconify
-
-# Modules (or rather Module :-P) ###############################################
-
-Module FvwmButtons
+AddToFunc InitFunction
++ I exec xscreensaver -no-splash
++ I exec feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg &

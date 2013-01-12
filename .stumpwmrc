@@ -1,0 +1,79 @@
+;; Hey Emacs! This is a -*- Lisp -*- file! vim: ft=lisp
+
+;; woddfellow2's StumpWM Config
+;; by woddfellow2 | http://wlair.us.to/
+
+(in-package :stumpwm)
+
+;; Appearance
+(set-font "-misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*")
+
+(setf *window-border-style* :NONE)
+(setf *normal-border-width* 0)
+
+(set-fg-color "green")
+(set-bg-color "black")
+(set-border-color "green")
+
+(setf *message-window-gravity* :center)
+(setf *input-window-gravity* :center)
+
+;; Mode Line
+(setf *mode-line-pad-x* 0)
+(setf *mode-line-pad-y* 0)
+(setf *mode-line-border-width* 0)
+
+(setf stumpwm:*screen-mode-line-format* "[%n] %w")
+(setf stumpwm:*mode-line-background-color* "black")
+(setf stumpwm:*mode-line-foreground-color* "green")
+
+;; Change startup message
+(setf *startup-message* "Welcome to StumpWM")
+
+;; C-t e should use emacsclient
+(defcommand emacsclient () ()
+  "Start emacsclient unless it is already running, in which case focus it."
+  (run-or-raise "emacsclient --alternate-editor='' -c" '(:class "Emacs")))
+
+;; Commands to run-or-raise urxvt/screen, Firefox, and Conkeror
+(defcommand urxvtandscreen () ()
+  "Start urxvt/GNU Screen unless it is already running, in which case focus it."
+  (run-or-raise "urxvt -sl 0 -e screen -dRR" '(:class "URxvt")))
+
+(defcommand firefox () ()
+  "Start Mozilla Firefox unless it is already running, in which case focus it."
+  (run-or-raise "firefox" '(:class "Firefox")))
+
+(defcommand conkeror () ()
+  "Start Conkeror unless it is already running, in which case focus it."
+  (run-or-raise "conkeror" '(:class "Conkeror")))
+
+;; Keybindings
+(define-key *root-map* (kbd "c") "exec urxvt")
+(define-key *root-map* (kbd "C-c") "exec urxvt")
+
+(define-key *root-map* (kbd "x") "exec xautolock -locknow")
+
+(define-key *root-map* (kbd "~") "urxvtandscreen")
+(define-key *root-map* (kbd "M-f") "firefox")
+(define-key *root-map* (kbd "M-c") "conkeror")
+
+(define-key *root-map* (kbd "e") "emacsclient")
+(define-key *root-map* (kbd "C-e") "emacsclient")
+
+(define-key *root-map* (kbd "/") "mode-line")
+
+;; Urgency
+(defun echo-urgent-window (target)
+  (STUMPWM::MESSAGE-NO-TIMEOUT "^1 ^BUrgency in window ^3 ^B~a^b"
+			       (STUMPWM::WINDOW-NUMBER target)))
+(add-hook *urgent-window-hook* 'echo-urgent-window)
+
+;; SLIME/SWANK (This is a bit buggy; try stumpwm &> a file)
+(require 'swank)
+(swank:create-server)
+
+(setf stumpwm:*top-level-error-action* :abort)
+
+;; Banish pointer
+(stumpwm::banish)

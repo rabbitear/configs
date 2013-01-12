@@ -91,6 +91,7 @@ editing forum posts."
 (global-set-key (kbd "C-x M-h") 'man)
 
 (global-set-key (kbd "C-x M-f") 'auto-fill-mode)
+(global-set-key (kbd "C-x M-j") 'whitespace-mode)
 
 (global-set-key (kbd "C-x M-c") 'compile)
 (global-set-key (kbd "C-x M-e") 'eval-region)
@@ -115,12 +116,13 @@ editing forum posts."
 (global-set-key (kbd "C-x 4 z") 'switch-to-scratch-buffer-other-window)
 (global-set-key (kbd "C-x 5 z") 'switch-to-scratch-buffer-other-frame)
 
+(global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
+
 ;; Scroll conservatively
 (setq scroll-conservatively most-positive-fixnum)
 
 ;; Highlight trailing whitespace and empty lines
-(setq-default show-trailing-whitespace t
-	      indicate-empty-lines t)
+(setq-default indicate-empty-lines t)
 
 ;; Iswitchb mode
 (iswitchb-mode 1)
@@ -145,20 +147,11 @@ editing forum posts."
 (setq tetris-score-file "~/.emacs.d/tetris-scores"
       snake-score-file "~/.emacs.d/snake-scores")
 
-;; Custom Tetris keybindings to prevent me from having to endure the arrow keys
-(define-key tetris-mode-map "h" 'tetris-move-left)
-(define-key tetris-mode-map "j" 'tetris-rotate-next)
-(define-key tetris-mode-map "k" 'tetris-rotate-prev)
-(define-key tetris-mode-map "l" 'tetris-move-right)
-
-(define-key tetris-mode-map (kbd "C-b") 'tetris-move-left)
-(define-key tetris-mode-map (kbd "C-n") 'tetris-rotate-next)
-(define-key tetris-mode-map (kbd "C-p") 'tetris-rotate-prev)
-(define-key tetris-mode-map (kbd "C-f") 'tetris-move-right)
-
 ;; Emacs-w3m
 (require 'w3m-load)
 (setq w3m-use-cookies t)
+(setq-default w3m-use-toolbar nil)
+(setq browse-url-browser-function #'w3m-browse-url)
 
 ;; Nyan Mode
 (require 'nyan-mode)
@@ -196,6 +189,10 @@ editing forum posts."
       c-syntactic-indentation nil)
 
 ;; Python
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
 (defun woddf2-python-mode-hook ()
   "At the moment, all this does is set-fill-column to 79 as per PEP 8."
   (set-fill-column 79)
@@ -232,26 +229,14 @@ editing forum posts."
 ;; ratpoison
 (require 'ratpoison)
 
+;; StumpWM
+(load "~/.emacs.d/lisp/stumpwm-mode.el")
+
 ;; Weblogger Mode
 (require 'weblogger)
 (setq weblogger-config-alist
       (quote (("default" "http://wlair.us.to/blog/xmlrpc.php" "wlair" "" "1")
 	      ("wlair" "http://wlair.us.to/blog/xmlrpc.php" "wlair" "" "1"))))
-
-;; AUCTeX (I believe I copied and pasted this from pacman output.)
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
 
 ;; Calendar (sunrise/sunset, 24-hour time, ISO 8601)
 (setq calendar-latitude 40.57667
@@ -260,3 +245,10 @@ editing forum posts."
       calendar-time-display-form
       '(24-hours ":" minutes (if time-zone " (") time-zone (if time-zone ")"))
       calendar-date-style 'iso)
+
+;; Marmalade
+(require 'package)
+(add-to-list 'package-archives
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)

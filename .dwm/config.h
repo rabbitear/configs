@@ -1,19 +1,18 @@
 /* woddfellow2's dwm Config
    by woddfellow2 | http://wlair.us.to/ */
 
-#include "banish.c"
 #include "bstack.c"
 #include "bstackhoriz.c"
 
 // Appearance ------------------------------------------------------------------
-static const char font[] = "-*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*";
+static const char font[] = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 
-static const char normbordercolor[] = "#444444";
-static const char normbgcolor[] = "#222222";
-static const char normfgcolor[] = "#BBBBBB";
-static const char selbordercolor[] = "#005577";
-static const char selbgcolor[] = "#005577";
-static const char selfgcolor[] = "#EEEEEE";
+static const char normbordercolor[] = "#222222";
+static const char normbgcolor[] = "#050505";
+static const char normfgcolor[] = "#CCCCCC";
+static const char selbordercolor[] = "#2255FF";
+static const char selbgcolor[] = "#2255FF";
+static const char selfgcolor[] = "#FFFFFF";
 
 static const unsigned int borderpx = 1;
 static const unsigned int snap = 16;
@@ -27,28 +26,21 @@ static const char *tags[] =
 	"term",
 	"www",
 	"gvim",
-	"img",
-	"video",
-	"gimp",
-	"vm",
-	"prevue",
+	"media",
 	"other"
 };
 
 static const Rule rules[] =
 {
-	{ "URxvt", NULL, NULL, 1 << 0, False, -1 },
-	{ "Gimp", NULL, NULL, 1 << 5, True, -1 },
+	{ "st", NULL, NULL, 1 << 0, False, -1 },
+	{ "st-256color", NULL, NULL, 1 << 0, False, -1 },
+	{ "Gimp", NULL, NULL, 1 << 4, True, -1 },
 	{ "Firefox", NULL, NULL, 1 << 1, False, -1 },
-	{ "Icecat", NULL, NULL, 1 << 1, False, -1 },
 	{ "Gvim", NULL, NULL, 1 << 2, False, -1 },
 	{ "feh", NULL, NULL, 1 << 3, False, -1 },
 	{ "Display", NULL, NULL, 1 << 3, True, -1 },
-	{ "MPlayer", NULL, NULL, 1 << 4, False, -1 },
-	{ "VirtualBox", NULL, NULL, 1 << 6, True, -1 },
-	{ "UAE", NULL, NULL, 1 << 7, True, -1 },
-	{ "uae", NULL, NULL, 1 << 7, True, -1 },
-	{ NULL, NULL, NULL, 1 << 8, False, -1 },
+	{ "MPlayer", NULL, NULL, 1 << 3, False, -1 },
+	{ NULL, NULL, NULL, 1 << 4, False, -1 },
 };
 
 // Layouts ---------------------------------------------------------------------
@@ -81,15 +73,11 @@ static const char *dmenucmd[] =
 	"dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb",
 	selbgcolor, "-sf", selfgcolor, NULL
 };
-static const char *termcmd[] =
-{
-	"urxvt", NULL
-};
 
 static Key keys[] =
 {
 	{ MODKEY, XK_p, spawn, {.v = dmenucmd } },
-	{ MODKEY|ShiftMask, XK_Return, spawn, {.v = termcmd } },
+	{ MODKEY|ShiftMask, XK_Return, spawn, SHCMD("~/.st/st") },
 	{ MODKEY, XK_b, togglebar, {0} },
 	{ MODKEY, XK_j, focusstack, {.i = +1 } },
 	{ MODKEY, XK_k, focusstack, {.i = -1 } },
@@ -125,11 +113,11 @@ static Key keys[] =
 	// Custom Keybindings
 	{ MODKEY, XK_Escape, spawn, SHCMD("xautolock -locknow") },
 	{ MODKEY|ShiftMask, XK_grave, spawn, 
-		SHCMD("urxvt -sl 0 -e screen -dRR") },
-	{ MODKEY, XK_x, banish, {0} },
+		SHCMD("~/.st/st -e screen -dRR") },
+	{ MODKEY, XK_x, spawn, SHCMD("banish") },
 	{ MODKEY|ShiftMask, XK_t, setlayout, {.v = &layouts[3]} },
 	{ MODKEY|ControlMask, XK_t, setlayout, {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask, XK_f, spawn, SHCMD("icecat") },
+	{ MODKEY|ShiftMask, XK_f, spawn, SHCMD("firefox") },
 };
 
 // Mouse Bindings --------------------------------------------------------------

@@ -33,9 +33,6 @@ map U :undo <Tab>
 " FlashBlock^H^H^H^H^H^H^H^H^H^HNoScript integration
 loadplugins
 
-" Pointless eye candy
-colorscheme simple_dark
-
 " Disable this annoyance
 set yankshort=
 

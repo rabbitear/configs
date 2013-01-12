@@ -30,14 +30,15 @@ alias tweet-uptime="$HOME/scripts/tweet-uptime.sh"
 alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
 alias c="clear"
 alias dRR="screen -dRR"
-alias e="emacsclient -alternate-editor=\"\" -nw"
-alias maharani="ssh -tC woddf2@maharani.meskarune.com screen -dRR"
+alias sprungecap="$HOME/scripts/sprungecap"
+alias scrompload="$HOME/scripts/scrompload"
+alias genesis="ssh -t woddf2@genesis screen -dRR"
+alias senator="ssh -t woddf2@senator screen -dRR"
+alias maharani="ssh -tC woddf2@66.175.208.202 screen -dRR"
 
 if [[ -z "$DISPLAY" ]] && [[ -z "$STY" ]]; then
-	alias x="startx & exit"
+	alias x="exec startx"
 	alias wm="$HOME/scripts/select-wm"
-	alias s="screen -c ~/.screen/screenrc-startup -dRR"
-	alias S="screen -c ~/.screen/screenrc-startup -d -m"
 fi
 
 # If this were less naïve, it would check $TERMCAP to see if it can do title.
@@ -47,6 +48,10 @@ fi
 
 # Make Exiting Difficult
 export IGNOREEOF=9001
+
+if [[ -n "$STY" ]] && [[ "$WINDOW" == 0 ]]; then
+	alias exit="false"
+fi
 
 # Functions
 function sprunge ()

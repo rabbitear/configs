@@ -24,6 +24,3 @@ activity "^GActivity in window %n"
 
 # Add day of week and change date to ISO 8601 format
 time "%D %Y-%m-%d %c:%s %H%? %l%?"
-
-# Lock terminal after 15 minutes
-idle 900 lockscreen

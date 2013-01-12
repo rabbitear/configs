@@ -1,10 +1,12 @@
-#define FONT -*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*
+#define FONT -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
+#define BOLD_FONT -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
 
 ! urxvt ------------------------------------------------------------------------
 
 URxvt.geometry: 80x25
 
 URxvt.font: FONT
+URxvt.boldFont: BOLD_FONT
 
 URxvt.perl-ext-common: 
 URxvt.urgentOnBell: true
