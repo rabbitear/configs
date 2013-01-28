@@ -1,1 +1,26 @@
-/home/woddf2/.screenrc
+# woddfellow2's GNU Screen Config
+# by woddfellow2 | http://wlair.us.to/
+
+# Disable visual bell
+vbell off
+
+# Crash protection
+autodetach on
+
+# Do not display splash screen
+startup_message off
+
+# Scrollback buffer
+defscrollback 1000
+
+# Status line
+hardstatus off
+hardstatus string "screen@%H: %n %t (%h)"
+
+# This way, if a background window beeps, I will not miss it;
+# note the ^G at the beginning
+bell_msg "^GBell in window %n"
+activity "^GActivity in window %n"
+
+# Add day of week and change date to ISO 8601 format
+time "%D %Y-%m-%d %c:%s %H%? %l%?"

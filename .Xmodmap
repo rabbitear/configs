@@ -1,1 +1,2 @@
-/home/woddf2/.Xmodmap
+remove Lock = Caps_Lock
+keycode 66 = Escape

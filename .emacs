@@ -1,1 +1,0 @@
-/mnt/genesis-home/woddf2/.emacs
