@@ -1,0 +1,257 @@
+# woddfellow2's FVWM Config
+# by woddfellow2 | http://wlair.us.to/
+
+# See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
+IgnoreModifiers L25
+
+# Virtual Desktops
+DeskTopSize 3x3
+
+# Functions ####################################################################
+
+# Do not move mouse pointer when focusing a window
+DestroyFunc WindowListFunc
+AddToFunc WindowListFunc
++ I Iconify off
++ I FlipFocus
++ I Raise
+
+# Iconify function
+DestroyFunc FuncFvwmMoveOrIconify
+AddToFunc FuncFvwmMoveOrIconify
++ I Raise
++ M Move
++ D Iconify
+
+DestroyFunc FuncFvwmMaximize
+AddToFunc FuncFvwmMaximize
++ M Maximize   0 100
++ H Maximize   0 100
++ C Maximize   0  80
++ D Maximize 100 100
+
+Mouse 1 I A FuncFvwmMoveOrIconify
+
+# Urgency
+DestroyFunc UrgencyFunc
+AddToFunc UrgencyFunc
++ I ThisWindow (!Focused) WindowStyle HilightColorset 2
++ I ThisWindow (!Focused) WindowStyle Colorset 2
++ I ThisWindow (!Focused) Raise
+
+DestroyFunc UrgencyDoneFunc
+AddToFunc UrgencyDoneFunc
++ I WindowStyle Colorset 0
++ I WindowStyle HilightColorset 1
+
+# Menus ########################################################################
+
+# Root Menu
+DestroyMenu MenuFvwmRoot
+AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
++ "&T. URxvt" Exec exec urxvt
++ "" Nop
++ "&S. GNU Screen" Exec exec urxvt -sl 0 -e screen -dRR
++ "&R. $[gt.Remote Logins]" Popup MenuFvwmLogins
++ "" Nop
++ "&A. $[gt.Applications]" Popup MenuFvwmUtilities
++ "" Nop
++ "&F. $[gt.FVWM]" Popup MenuFvwmFvwm
++ "&L. $[gt.Wallpaper]" Popup MenuWallpaper
++ "&W. $[gt.Window Ops]" Popup MenuFvwmWindowOps
++ "" Nop
++ "&X. $[gt.Leave]" Popup MenuGTFO
+
+# Remote Logins Menu
+DestroyMenu MenuFvwmLogins
+AddToMenu MenuFvwmLogins
++ "&volunteer" \
+  Exec exec urxvt -sl 0 -title volunteer -hold -e ssh -t volunteer screen -dRR
++ "&genesis" \
+  Exec exec urxvt -sl 0 -title genesis -hold -e ssh -t genesis screen -dRR
++ "&maharani" Exec exec \
+  urxvt -sl 0 -title maharani -hold -e ssh -tC 66.175.208.202 screen -dRR
+
+# Applications Menu
+DestroyMenu MenuFvwmUtilities
+AddToMenu MenuFvwmUtilities
++ "g&Vim" Exec exec gvim
++ "&Emacs" Exec exec emacs
++ "" Nop
++ "Sea&Monkey" Exec exec seamonkey
++ "" Nop
++ "&Audacious" Exec exec audacious
++ "The &GIMP" Exec exec gimp
++ "" Nop
++ "&LBreakout2" Exec exec lbreakout2
++ "&Spider" Exec exec spider
++ "&UAE" Exec exec uae
+
+# Wallpaper Menu
+DestroyMenu MenuWallpaper
+AddToMenu MenuWallpaper
++ "&Stabilis" Exec exec \
+  feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg
++ "S&pectrum" Exec exec \
+  feh --bg-center ~/img/wallpaper/02301_spectrum_1024x768.jpg
++ "IntelliStar 200&7" Exec exec feh --bg-scale ~/img/IS\ Graphics/domestic.tif
++ "IntelliStar 200&5" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticAlmanac.tif
++ "IntelliStar &Bulletin" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticBulletin.tif
++ "IntelliStar &Marine" Exec exec \
+  feh --bg-scale ~/img/IS\ Graphics/domesticMarine.tif
++ "IntelliStar S&ki" Exec exec feh --bg-scale ~/img/IS\ Graphics/domesticSki.tif
+
+# FVWM Menu
+DestroyMenu MenuFvwmFvwm
+AddToMenu MenuFvwmFvwm
++ "Fvwm&Console" Module FvwmConsole
++ "&Edit Config" Exec exec gvim ~/.fvwm/.fvwm2rc
+
+# Window Ops Menu
+DestroyMenu MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps
++ "$[gt.&Move]" Move
++ "$[gt.&Resize]" Resize
++ "$[gt.R&aise]" Raise
++ "$[gt.&Lower]" Lower
++ "$[gt.(De)&Iconify]" Iconify
++ "$[gt.S&hade]" WindowShade
++ "$[gt.(Un)&Stick]" Stick
++ "$[gt.(Un)Ma&ximize]" FuncFvwmMaximize
++ "" Nop
++ "$[gt.I&nformation]" FvwmIdent
++ "" Nop
++ "$[gt.Move to &Workspace...]" Popup MenuMoveToWorkspace
++ "" Nop
++ "$[gt.&Delete]" Delete
++ "$[gt.&Close]" Close
++ "$[gt.Destroy]" Destroy
+
+# "Move to Workspace..." menu
+DestroyMenu MenuMoveToWorkspace
+AddToMenu MenuMoveToWorkspace
++ "&1. $[gt.Northwest]" MoveToPage 0 0
++ "&2. $[gt.North]" MoveToPage 1 0
++ "&3. $[gt.Northeast]" MoveToPage 2 0
++ "&4. $[gt.West]" MoveToPage 0 1
++ "&5. $[gt.Central]" MoveToPage 1 1
++ "&6. $[gt.East]" MoveToPage 2 1
++ "&7. $[gt.Southwest]" MoveToPage 0 2
++ "&8. $[gt.South]" MoveToPage 1 2
++ "&9. $[gt.Southeast]" MoveToPage 2 2
+
+# Leave Menu
+DestroyMenu MenuGTFO
+AddToMenu MenuGTFO
++ "&X. $[gt.XScreenSaver]" Exec exec xscreensaver-command -lock
++ "&L. $[gt.xlock]" Exec exec xlock
++ "" Nop
++ "&R. $[gt.Restart FVWM]" Restart
++ "&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
+
+# Exit FVWM Menu
+DestroyMenu MenuGTFOExit
+AddToMenu MenuGTFOExit
++ "$[gt.Really Exit]" Quit
+
+# Mouse Bindings ###############################################################
+
+Mouse 0 1 A Menu MenuFvwmWindowOps Close
+Mouse 0 3 A WindowShade
+Mouse 0 2 A FuncFvwmMaximize
+Mouse 0 4 A Iconify
+
+Mouse 3 TSIF A RaiseLower
+
+Mouse 2 R A Menu MenuFvwmWindowOps Nop
+Mouse 3 R A WindowList
+
+# Keybindings ##################################################################
+
+# Window list; replace META+TAB with SUPER+TAB
+Key Tab A M -
+Key Tab A 4 WindowList Root c c NoDeskSort
+MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 3
+
+Key space A 4 Menu MenuFvwmRoot
+
+# Style ########################################################################
+
+Style * SloppyFocus
+
+Style * IconBox 0 -10 -280 -1
+
+DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+
+# Colours
+Colorset 0 fg White, bg SeaGreen
+Colorset 1 fg White, bg Firebrick
+Colorset 2 fg Black, bg Yellow3
+Colorset 3 fg White, bg SeaGreen
+
+DefaultColorset 1
+Style * Colorset 0
+Style * HilightColorset 1
+MenuStyle * fvwm, MenuColorset 3
+
+# Look for icons in /usr/share/pixmaps and /usr/share/icons
+ImagePath /usr/share/pixmaps:/usr/share/icons
+
+# Application-specific Style
+Style *rxvt Icon Tango/scalable/apps/terminal.svg, \
+      MiniIcon Tango/16x16/apps/terminal.png, MWMBorder, MWMButtons
+Style MPlayer Icon hicolor/48x48/apps/mplayer.png
+
+# FvwmIdent
+*FvwmIdent: Back navy
+*FvwmIdent: Fore yellow
+*FvwmIdent: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+
+# FvwmPager
+*FvwmPager: Font "none"
+*FvwmPager: MiniIcons
+*FvwmPager: Balloons
+*FvwmPager: BalloonColorset * 2
+
+# FvwmIconMan
+*FvwmIconMan: ManagerGeometry 1x7
+*FvwmIconMan: Action Mouse 1 N sendcommand Focus
+*FvwmIconMan: Action Mouse 2 N sendcommand "Iconify"
+*FvwmIconMan: Action Mouse 3 N sendcommand "FvwmIdent"
+*FvwmIconMan: Background SeaGreen
+*FvwmIconMan: Foreground white
+*FvwmIconMan: IconButton up black maroon
+*FvwmIconMan: PlainButton up white SeaGreen
+*FvwmIconMan: SelectButton down white SeaGreen
+*FvwmIconMan: FocusButton up yellow firebrick
+*FvwmIconMan: FocusAndSelectButton down yellow firebrick
+*FvwmIconMan: Font -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*
+
+# FvwmButtons
+DestroyModuleConfig FvwmButtons: *
+Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
+      ClickToFocus, FixedPosition, BorderWidth 5, !Handles
+*FvwmButtons: Back SeaGreen
+*FvwmButtons: Rows 8
+*FvwmButtons: Columns 1
+*FvwmButtons: Geometry 191x300-0+0
+*FvwmButtons: (1x4, Swallow "FvwmPager" `Module FvwmPager 0 0`)
+*FvwmButtons: (1x1, Swallow "xclock" `Exec exec xclock -update 1 -digital \
+       -twentyfour -strftime \"%F %T\" -face Fixed-11 -bg black -fg green`)
+*FvwmButtons: (1x3, Swallow "FvwmIconMan" `Module FvwmIconMan`)
+
+# FvwmBanner
+Style FvwmBanner StaysOnTop, !Title
+
+# Startup Applications #########################################################
+
+AddToFunc StartFunction
++ I Module FvwmAnimate
++ I Module FvwmBanner
++ I Module FvwmButtons
+
+AddToFunc InitFunction
++ I exec xscreensaver -no-splash
++ I exec feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg &
