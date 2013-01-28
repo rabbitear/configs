@@ -1,4 +1,1 @@
-! xautolock --------------------------------------------------------------------
-
-Xautolock.time: 1
-Xautolock.locker: slock
+/home/woddf2/.Xdefaults
