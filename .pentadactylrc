@@ -43,6 +43,7 @@ set yankshort=
 " confusion because urxvt beeps at the same frequency
 set visualbell
 
-colorscheme solarized-dark
+" Pointless eye candy is pointless
+colorscheme molokai
 
 " vim: filetype=vimperator

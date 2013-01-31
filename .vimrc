@@ -21,3 +21,6 @@ autocmd FileType mail set textwidth=64
 
 " Custom command:
 command PostUpdate :read !~/scripts/post-update.sh
+
+" Pointless eye candy is pointless
+colorscheme polemon

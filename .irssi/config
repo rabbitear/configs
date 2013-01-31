@@ -2,12 +2,16 @@
 # by woddfellow2 | http://wlair.us.to/
 
 # I do not normally edit this file manually, as doing so is discouraged.
+# 
+# Woah, keeping passwords in cleartext like this is even more insecure now that
+# this lives on Meskarune's Linode. I trust her to leave this file alone,
+# though.
 
 servers = (
   {
     address = "localhost";
     chatnet = "bitlbee";
-    port = "49152";
+    port = "6667";
     autoconnect = "yes";
   },
   {
@@ -22,12 +26,13 @@ servers = (
   {
     address = "irc.foonetic.net";
     chatnet = "foonetic";
-    port = "6667";
+    port = "6697";
     password = "[REDACTED]";
+    use_ssl = "yes";
     autoconnect = "yes";
   },
   {
-    address = "irc.jtmal.net";
+    address = "irc.twister-irc.net";
     chatnet = "twister";
     port = "6667";
     password = "[REDACTED]";
@@ -36,22 +41,25 @@ servers = (
   {
     address = "irc.oftc.net";
     chatnet = "oftc";
-    port = "6667";
+    port = "6697";
     password = "[REDACTED]";
+    use_ssl = "yes";
     autoconnect = "no";
   },
   {
     address = "irc.rizon.net";
     chatnet = "rizon";
-    port = "6667";
+    port = "6697";
     password = "[REDACTED]";
+    use_ssl = "yes";
     autoconnect = "no";
   },
   {
     address = "irc.systemnet.info";
     chatnet = "systemnet";
-    port = "6667";
+    port = "6697";
     password = "[REDACTED]";
+    use_ssl = "yes";
     autoconnect = "yes";
   }
 );
@@ -91,29 +99,30 @@ settings = {
     quit_message = "http://wlair.us.to/";
     real_name = "woddfellow2";
     user_name = "woddf2";
-    nick = "woddf2";
+    nick = "xoddf2";
     log_timestamp = "%T ";
+    awaylog_file = "~/irclogs/away.log";
+    hostname = "";
   };
   "fe-common/core" = {
     autolog = "yes";
     beep_msg_level = "MSGS DCC DCCMSGS HILIGHT";
     bell_beeps = "yes";
     autoclose_windows = "no";
-    theme = "default";
+    theme = "woddf2";
     autolog_level = "all";
     window_history = "yes";
+    autolog_path = "~/irclogs/$tag/$0.%Y-%m.log";
   };
-  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-text" = { actlist_sort = "refnum"; paste_verify_line_count = "1"; };
   "irc/core" = {
     part_message = "http://wlair.us.to/";
-    alternate_nick = "woddfellow2";
+    alternate_nick = "xoddf2";
   };
   "perl/core/scripts" = {
     screen_away_active = "yes";
     screen_away_window = "0";
-    xscreensaver_away_window = "0";
     screen_away_message = "GNU Screen is detached";
-    xscreensaver_away_message = "XScreenSaver is locked";
     bitlbee_typing_allwin = "yes";
   };
   "fe-common/irc" = {
@@ -121,8 +130,18 @@ settings = {
     netsplit_nicks_hide_threshold = "0";
   };
 };
-logs = { };
-aliases = { tp = "topic $C $* | $topic"; close = "window close"; };
+logs = {
+  "~/irclogs/status.log" = {
+    level = "ALL";
+    items = ( { type = "window"; name = "1"; } );
+  };
+};
+aliases = {
+  tp = "topic $C $* | $topic";
+  close = "window close";
+  wii = "whois $0 $0";
+  sg = "scrollback goto $*";
+};
 statusbar = {
   default = {
     window = {
@@ -135,11 +154,8 @@ statusbar = {
         act = { priority = "10"; };
         more = { priority = "-1"; alignment = "right"; };
         barend = { priority = "100"; alignment = "right"; };
-        typing_notice = { };
-        join_notice = { };
       };
     };
-    topic = { };
     prompt = {
       items = {
         uberprompt = { priority = "-1"; };
@@ -152,12 +168,39 @@ statusbar = {
 hilights = (
   { text = "woddf2"; nick = "yes"; word = "yes"; },
   { text = "wodd"; nick = "yes"; word = "yes"; },
-  { text = "woodf"; nick = "yes"; word = "yes"; }
+  { text = "woodf"; nick = "yes"; word = "yes"; },
+  { text = "woof2"; nick = "yes"; word = "yes"; }
 );
 # There is an ignores section here that I keep private
+keyboard = (
+  { key = "meta-^I"; id = "command"; data = "window last"; },
+  { key = "meta-<"; id = "command"; data = "scrollback home"; },
+  { key = "meta->"; id = "command"; data = "scrollback end"; },
+  { key = "meta-!"; id = "change_window"; data = "11"; },
+  { key = "meta-@"; id = "change_window"; data = "12"; },
+  { key = "meta-#"; id = "change_window"; data = "13"; },
+  { key = "meta-$"; id = "change_window"; data = "14"; },
+  { key = "meta-%"; id = "change_window"; data = "15"; },
+  { key = "meta-^"; id = "change_window"; data = "16"; },
+  { key = "meta-&"; id = "change_window"; data = "17"; },
+  { key = "meta-*"; id = "change_window"; data = "18"; },
+  { key = "meta-("; id = "change_window"; data = "19"; },
+  { key = "meta-)"; id = "change_window"; data = "20"; },
+  { key = "meta-q"; id = "change_window"; data = "21"; },
+  { key = "meta-w"; id = "change_window"; data = "22"; },
+  { key = "meta-e"; id = "change_window"; data = "23"; },
+  { key = "meta-r"; id = "change_window"; data = "24"; },
+  { key = "meta-t"; id = "change_window"; data = "25"; },
+  { key = "meta-y"; id = "change_window"; data = "26"; },
+  { key = "meta-u"; id = "change_window"; data = "27"; },
+  { key = "meta-i"; id = "change_window"; data = "28"; },
+  { key = "meta-o"; id = "change_window"; data = "29"; }
+);
+notifies = { };
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
-  2 = {
+  2 = { name = "hilight"; };
+  3 = {
     items = (
       {
         type = "CHANNEL";
@@ -167,7 +210,7 @@ windows = {
       }
     );
   };
-  3 = {
+  4 = {
     items = (
       {
         type = "CHANNEL";
@@ -177,7 +220,7 @@ windows = {
       }
     );
   };
-  4 = {
+  5 = {
     items = (
       {
         type = "CHANNEL";
@@ -187,7 +230,7 @@ windows = {
       }
     );
   };
-  5 = {
+  6 = {
     items = (
       {
         type = "CHANNEL";
@@ -197,7 +240,7 @@ windows = {
       }
     );
   };
-  6 = {
+  7 = {
     items = (
       {
         type = "CHANNEL";
@@ -207,7 +250,7 @@ windows = {
       }
     );
   };
-  7 = {
+  8 = {
     items = (
       {
         type = "CHANNEL";
@@ -217,7 +260,7 @@ windows = {
       }
     );
   };
-  8 = {
+  9 = {
     items = (
       {
         type = "CHANNEL";
@@ -228,10 +271,4 @@ windows = {
     );
   };
 };
-mainwindows = { 4 = { first_line = "1"; lines = "58"; }; };
-keyboard = (
-  { key = "meta-^I"; id = "command"; data = "window last"; },
-  { key = "meta-<"; id = "command"; data = "scrollback home"; },
-  { key = "meta->"; id = "command"; data = "scrollback end"; }
-);
-notifies = { };
+mainwindows = { 5 = { first_line = "1"; lines = "76"; }; };
