@@ -1,8 +1,9 @@
 # woddfellow2's ~/.xinitrc
 # by woddfellow2 | http://wlair.us.to/
 
-# xautolock
-xautolock -time 1 -locker slock &
+# Screen saver
+xset s 60 &
+~/scripts/xsidle.sh slock &
 
 xrdb -merge ~/.Xdefaults &
 xmodmap ~/.Xmodmap &

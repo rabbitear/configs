@@ -12,6 +12,10 @@ set splitbelow
 
 set directory=~/.vim/swap
 
+" Fix tab completion
+set wildmenu
+set wildmode=longest,list
+
 " Because I can:
 set shortmess+=I
 map ZQ <Nop>
