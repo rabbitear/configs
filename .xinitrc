@@ -1,26 +1,26 @@
-# woddfellow2's ~/.xinitrc
+# woddfellow2's xinitrc (genesis)
 # by woddfellow2 | http://wlair.us.to/
-
-# Screen saver
-xset s 60 &
-~/scripts/xsidle.sh slock &
 
 xrdb -merge ~/.Xdefaults &
 xmodmap ~/.Xmodmap &
 
-# Make Terminus work
+# Make Tamsyn and Terminus work
 xset +fp /usr/share/fonts/local &
 xset fp rehash &
 
-# Set wallpaper
-xsetroot -solid black &
+# xautolock/slock
+xautolock -time 1 -locker "slock" &
 
-# Banish pointer
-banish &
+# URxvt daemon
+urxvtd -q -o -f &
 
-# Status bar
+# dwmstatus
 ~/apps/dwmstatus &
 
-until ~/.dwm/dwm; do true; done
+# Pointless eye candy is pointless
+feh --bg-center ~/img/01906_stabilis_1440x900.jpg &
 
-# vim: ft=sh
+# Banish pointer <https://github.com/woddfellow2/banish>
+banish &
+
+until ~/.dwm/dwm; do true; done

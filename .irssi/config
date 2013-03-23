@@ -3,7 +3,6 @@
 
 # I do not normally edit this file manually, as doing so is discouraged.
 # 
-# Woah, keeping passwords in cleartext like this is even more insecure now that
 # this lives on Meskarune's Linode. I trust her to leave this file alone,
 # though.
 
@@ -18,7 +17,6 @@ servers = (
     address = "irc.freenode.net";
     chatnet = "freenode";
     port = "6697";
-    password = "[REDACTED]";
     use_ssl = "yes";
     ssl_verify = "yes";
     autoconnect = "yes";
@@ -27,7 +25,6 @@ servers = (
     address = "irc.foonetic.net";
     chatnet = "foonetic";
     port = "6697";
-    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "yes";
   },
@@ -35,14 +32,12 @@ servers = (
     address = "irc.twister-irc.net";
     chatnet = "twister";
     port = "6667";
-    password = "[REDACTED]";
     autoconnect = "yes";
   },
   {
     address = "irc.oftc.net";
     chatnet = "oftc";
     port = "6697";
-    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "no";
   },
@@ -50,7 +45,6 @@ servers = (
     address = "irc.rizon.net";
     chatnet = "rizon";
     port = "6697";
-    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "no";
   },
@@ -58,7 +52,6 @@ servers = (
     address = "irc.systemnet.info";
     chatnet = "systemnet";
     port = "6697";
-    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "yes";
   }
@@ -99,7 +92,7 @@ settings = {
     quit_message = "http://wlair.us.to/";
     real_name = "woddfellow2";
     user_name = "woddf2";
-    nick = "xoddf2";
+    nick = "woddf2";
     log_timestamp = "%T ";
     awaylog_file = "~/irclogs/away.log";
     hostname = "";
@@ -113,6 +106,8 @@ settings = {
     autolog_level = "all";
     window_history = "yes";
     autolog_path = "~/irclogs/$tag/$0.%Y-%m.log";
+    completion_keep_privates = "0";
+    term_charset = "utf-8";
   };
   "fe-text" = { actlist_sort = "refnum"; paste_verify_line_count = "1"; };
   "irc/core" = {
@@ -141,6 +136,9 @@ aliases = {
   close = "window close";
   wii = "whois $0 $0";
   sg = "scrollback goto $*";
+  ko = "knockout";
+  kb = "kickban";
+  g = "msg * !grab $*";
 };
 statusbar = {
   default = {
@@ -169,7 +167,8 @@ hilights = (
   { text = "woddf2"; nick = "yes"; word = "yes"; },
   { text = "wodd"; nick = "yes"; word = "yes"; },
   { text = "woodf"; nick = "yes"; word = "yes"; },
-  { text = "woof2"; nick = "yes"; word = "yes"; }
+  { text = "woof2"; nick = "yes"; word = "yes"; },
+  { text = "wodff2"; nick = "yes"; word = "yes"; }
 );
 # There is an ignores section here that I keep private
 keyboard = (

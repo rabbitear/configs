@@ -21,15 +21,14 @@ set defsearch=
 map + <C-+>
 map \- <C-->
 
-" Disable F1, ^S, ^H, CTRL+SHIFT+O, and gh keybindings (If I wanted to
-" read the Pentadactyl manual, I would have typed :help, if I wanted to
+" Disable F1, ^S, ^H, and CTRL+SHIFT+O keybindings (If I wanted to read
+" the Pentadactyl manual, I would have typed :help, if I wanted to
 " save the current page, I would have typed :saveas, and if I wanted
 " the library, I would have typed :dia places.)
 map <F1> <nop>
 map <C-s> <nop>
 map <C-h> <nop>
 map <C-S-o> <nop>
-map gh <Nop>
 
 " Easier access to :undo tab completion
 map U :undo <Tab>

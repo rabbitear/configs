@@ -1,6 +1,10 @@
 # woddfellow2's FVWM Config
 # by woddfellow2 | http://wlair.us.to/
 
+# This config is recommended for use with stock Slackware 14.0, with
+# urxvt <http://www.slackbuilds.org/repository/14.0/system/rxvt-unicode/>.
+# The font used in this config is misc-fixed, which should make it portable.
+
 # See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
 IgnoreModifiers L25
 
@@ -32,7 +36,7 @@ AddToFunc FuncFvwmMaximize
 
 Mouse 1 I A FuncFvwmMoveOrIconify
 
-# Urgency
+# Urgency (This raises the window and turns its border yellow.)
 DestroyFunc UrgencyFunc
 AddToFunc UrgencyFunc
 + I ThisWindow (!Focused) WindowStyle HilightColorset 2
@@ -57,51 +61,33 @@ AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
 + "&A. $[gt.Applications]" Popup MenuFvwmUtilities
 + "" Nop
 + "&F. $[gt.FVWM]" Popup MenuFvwmFvwm
-+ "&L. $[gt.Wallpaper]" Popup MenuWallpaper
 + "&W. $[gt.Window Ops]" Popup MenuFvwmWindowOps
 + "" Nop
 + "&X. $[gt.Leave]" Popup MenuGTFO
 
-# Remote Logins Menu
+# Remote Logins Menu (Disclaimer: This menu is esoteric to my personal LAN.)
 DestroyMenu MenuFvwmLogins
 AddToMenu MenuFvwmLogins
-+ "&volunteer" \
-  Exec exec urxvt -sl 0 -title volunteer -hold -e ssh -t volunteer screen -dRR
-+ "&genesis" \
-  Exec exec urxvt -sl 0 -title genesis -hold -e ssh -t genesis screen -dRR
++ "&genesis" Exec exec \
+  urxvt -sl 0 -hold -title genesis -e ssh -t genesis tmux attach-session -d
 + "&maharani" Exec exec \
-  urxvt -sl 0 -title maharani -hold -e ssh -tC 66.175.208.202 screen -dRR
+  urxvt -sl 0 -hold -title maharani -e ssh -tC 66.175.208.202 screen -dRR
 
 # Applications Menu
 DestroyMenu MenuFvwmUtilities
 AddToMenu MenuFvwmUtilities
++ "X&Term" Exec exec xterm
++ "&Rxvt" Exec exec rxvt
++ "" Nop
 + "g&Vim" Exec exec gvim
 + "&Emacs" Exec exec emacs
 + "" Nop
 + "Sea&Monkey" Exec exec seamonkey
++ "SeaMonkey (&Private)" Exec exec seamonkey -P private -new-instance
 + "" Nop
-+ "&Audacious" Exec exec audacious
 + "The &GIMP" Exec exec gimp
 + "" Nop
-+ "&LBreakout2" Exec exec lbreakout2
-+ "&Spider" Exec exec spider
-+ "&UAE" Exec exec uae
-
-# Wallpaper Menu
-DestroyMenu MenuWallpaper
-AddToMenu MenuWallpaper
-+ "&Stabilis" Exec exec \
-  feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg
-+ "S&pectrum" Exec exec \
-  feh --bg-center ~/img/wallpaper/02301_spectrum_1024x768.jpg
-+ "IntelliStar 200&7" Exec exec feh --bg-scale ~/img/IS\ Graphics/domestic.tif
-+ "IntelliStar 200&5" Exec exec \
-  feh --bg-scale ~/img/IS\ Graphics/domesticAlmanac.tif
-+ "IntelliStar &Bulletin" Exec exec \
-  feh --bg-scale ~/img/IS\ Graphics/domesticBulletin.tif
-+ "IntelliStar &Marine" Exec exec \
-  feh --bg-scale ~/img/IS\ Graphics/domesticMarine.tif
-+ "IntelliStar S&ki" Exec exec feh --bg-scale ~/img/IS\ Graphics/domesticSki.tif
++ "&Audacious" Exec exec audacious
 
 # FVWM Menu
 DestroyMenu MenuFvwmFvwm
@@ -168,14 +154,18 @@ Mouse 3 TSIF A RaiseLower
 Mouse 2 R A Menu MenuFvwmWindowOps Nop
 Mouse 3 R A WindowList
 
-# Keybindings ##################################################################
+# Keybindings (CUA-inspired) ###################################################
 
-# Window list; replace META+TAB with SUPER+TAB
-Key Tab A M -
-Key Tab A 4 WindowList Root c c NoDeskSort
-MenuStyle WindowList SelectOnRelease Super_L, MenuColorset 3
+Key F1 A M Menu MenuFvwmRoot
+Key F3 A M Menu MenuFvwmWindowOps
+Key F4 A M Close
+Key F7 A M Move
+Key F8 A M Resize
+Key F9 A M Iconify
+Key F10 A M FuncFvwmMaximize
+Key F12 A M WindowShade
 
-Key space A 4 Menu MenuFvwmRoot
+Key Space A M Menu MenuFvwmWindowOps
 
 # Style ########################################################################
 
@@ -186,15 +176,18 @@ Style * IconBox 0 -10 -280 -1
 DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 
 # Colours
-Colorset 0 fg White, bg SeaGreen
-Colorset 1 fg White, bg Firebrick
+Colorset 0 fg White, bg DimGrey
+Colorset 1 fg White, bg DarkCyan
 Colorset 2 fg Black, bg Yellow3
-Colorset 3 fg White, bg SeaGreen
+Colorset 3 fg Maroon, bg Grey
 
 DefaultColorset 1
 Style * Colorset 0
 Style * HilightColorset 1
 MenuStyle * fvwm, MenuColorset 3
+
+# Window list
+MenuStyle WindowList MenuColorset 3
 
 # Look for icons in /usr/share/pixmaps and /usr/share/icons
 ImagePath /usr/share/pixmaps:/usr/share/icons
@@ -203,6 +196,7 @@ ImagePath /usr/share/pixmaps:/usr/share/icons
 Style *rxvt Icon Tango/scalable/apps/terminal.svg, \
       MiniIcon Tango/16x16/apps/terminal.png, MWMBorder, MWMButtons
 Style MPlayer Icon hicolor/48x48/apps/mplayer.png
+Style feh Icon Tango/scalable/mimetypes/image.svg
 
 # FvwmIdent
 *FvwmIdent: Back navy
@@ -220,11 +214,11 @@ Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 *FvwmIconMan: Action Mouse 1 N sendcommand Focus
 *FvwmIconMan: Action Mouse 2 N sendcommand "Iconify"
 *FvwmIconMan: Action Mouse 3 N sendcommand "FvwmIdent"
-*FvwmIconMan: Background SeaGreen
+*FvwmIconMan: Background DimGrey
 *FvwmIconMan: Foreground white
 *FvwmIconMan: IconButton up black maroon
-*FvwmIconMan: PlainButton up white SeaGreen
-*FvwmIconMan: SelectButton down white SeaGreen
+*FvwmIconMan: PlainButton up white DimGrey
+*FvwmIconMan: SelectButton down white DimGrey
 *FvwmIconMan: FocusButton up yellow firebrick
 *FvwmIconMan: FocusAndSelectButton down yellow firebrick
 *FvwmIconMan: Font -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*
@@ -233,7 +227,7 @@ Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 DestroyModuleConfig FvwmButtons: *
 Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
       ClickToFocus, FixedPosition, BorderWidth 5, !Handles
-*FvwmButtons: Back SeaGreen
+*FvwmButtons: Back DimGrey
 *FvwmButtons: Rows 8
 *FvwmButtons: Columns 1
 *FvwmButtons: Geometry 191x300-0+0
@@ -254,4 +248,5 @@ AddToFunc StartFunction
 
 AddToFunc InitFunction
 + I exec xscreensaver -no-splash
-+ I exec feh --bg-center ~/img/wallpaper/01906_stabilis_1024x768.jpg &
++ I exec xmodmap ~/.Xmodmap
++ I exec xsetroot -solid DarkGrey

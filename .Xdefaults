@@ -1,0 +1,94 @@
+! urxvt ------------------------------------------------------------------------
+
+URxvt.geometry: 80x25
+
+URxvt.font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
+
+URxvt.colorBD: #FFFFFF
+
+URxvt.perl-ext-common: 
+URxvt.urgentOnBell: true
+
+URxvt.cursorUnderline: true
+URxvt.cursorBlink: true
+
+URxvt.scrollBar: false
+
+URxvt.transparent: true
+URxvt.shading: 25
+
+URxvt.fading: 25
+
+! Colour Scheme {{{
+URxvt.background: #000000
+URxvt.foreground: #AAAAAA
+! Black
+URxvt.color0: #000000
+URxvt.color8: #555555
+! Red
+URxvt.color1: #AA0000
+URxvt.color9: #FF5555
+! Green
+URxvt.color2: #00AA00
+URxvt.color10: #55FF55
+! Yellow
+URxvt.color3: #AA5500
+URxvt.color11: #FFFF55
+! Blue
+URxvt.color4: #0000AA
+URxvt.color12: #5555FF
+! Magenta
+URxvt.color5: #AA00AA
+URxvt.color13: #FF55FF
+! Cyan
+URxvt.color6: #00AAAA
+URxvt.color14: #55FFFF
+! White
+URxvt.color7: #AAAAAA
+URxvt.color15: #FFFFFF
+! }}}
+
+! urxvt (unreadable) -----------------------------------------------------------
+
+unreadable.geometry: 80x25
+unreadable.font: -misc-tamsyn-medium-r-*-*-9-*-*-*-*-*-*-*
+
+unreadable.perl-ext-common: 
+unreadable.urgentOnBell: true
+
+unreadable.cursorUnderline: true
+unreadable.cursorBlink: true
+
+unreadable.scrollBar: false
+unreadable.internalBorder: 0
+
+unreadable.transparent: false
+
+! Colour Scheme (Zenburn) {{{
+unreadable.background: #1E2320
+unreadable.foreground: #DCDCCC
+! Black
+unreadable.color0: #1E2320
+unreadable.color8: #709080
+! Red
+unreadable.color1: #705050
+unreadable.color9: #DCA3A3
+! Green
+unreadable.color2: #60B48A
+unreadable.color10: #C3BF9F
+! Yellow
+unreadable.color3: #DFAF8F
+unreadable.color11: #F0DFAF
+! Blue
+unreadable.color4: #506070
+unreadable.color12: #94BFF3
+! Magenta
+unreadable.color5: #DC8CC3
+unreadable.color13: #EC93D3
+! Cyan
+unreadable.color6: #8CD0D3
+unreadable.color14: #93E0E3
+! White
+unreadable.color7: #DCDCCC
+unreadable.color15: #FFFFFF
+! }}}

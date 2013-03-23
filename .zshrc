@@ -21,21 +21,20 @@ compinit
 # Prompt	
 autoload -U colors && colors
 local cmdstatus="%(?,%{$fg_bold[blue]%}%#%{$reset_color%},%{$fg_bold[red]%}%#%{$reset_color%})"
-export PS1="%{$fg_bold[green]%}%c%{$reset_color%} ${cmdstatus} "
+export PS1="%{$fg_bold[yellow]%}%c%{$reset_color%} ${cmdstatus} "
 
 # vi Keybindings
 bindkey -v
 
-# Make Exiting Difficult
-setopt ignoreeof
-
+# Make exiting difficult in the first shell in tmux
 if [[ -n "$TMUX" ]] && [[ "$TMUX_PANE" == "%0" ]]; then
 	alias exit="false"
+	alias logout="false"
+	setopt ignoreeof
 fi
 
 # Default Applications
 export EDITOR="vim"
-export PAGER="less"
 
 # Aliases
 alias ls="ls --color=auto"
@@ -45,16 +44,12 @@ alias mp="mplayer"
 alias mp-overscan="mplayer -vf scale=320:240,crop=288:216 -aspect 4:3"
 alias mp-monaural="mplayer -af pan=1:0.5:0.5"
 alias yt="youtube-viewer"
-alias wx="$HOME/scripts/weather.sh | $PAGER"
-alias wx-radar="$HOME/scripts/wx-radar.sh"
-alias tweet-uptime="$HOME/scripts/tweet-uptime.sh"
+alias wx="$HOME/scripts/wx | less"
+alias wx-radar="$HOME/scripts/wx-radar"
 alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
 alias c="clear"
-alias sprungecap="$HOME/scripts/sprungecap"
-alias scrompload="$HOME/scripts/scrompload"
-alias colours="$HOME/scripts/colours.sh"
-alias genesis="ssh -t woddf2@genesis screen -dRR"
-alias senator="ssh -t woddf2@senator screen -dRR"
+alias sprungecap="$HOME/scripts/cap"
+alias volunteer="ssh -t woddf2@volunteer screen -dRR"
 alias maharani="ssh -tC woddf2@66.175.208.202 screen -dRR"
 
 if [[ -z "$DISPLAY" ]] && [[ -z "$TMUX" ]]; then

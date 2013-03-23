@@ -32,8 +32,7 @@ static const char *tags[] =
 
 static const Rule rules[] =
 {
-	{ "st", NULL, NULL, 1 << 0, False, -1 },
-	{ "st-256color", NULL, NULL, 1 << 0, False, -1 },
+	{ "URxvt", NULL, NULL, 1 << 0, False, -1 },
 	{ "Gimp", NULL, NULL, 1 << 4, True, -1 },
 	{ "Firefox", NULL, NULL, 1 << 1, False, -1 },
 	{ "Gvim", NULL, NULL, 1 << 2, False, -1 },
@@ -77,7 +76,7 @@ static const char *dmenucmd[] =
 static Key keys[] =
 {
 	{ MODKEY, XK_p, spawn, {.v = dmenucmd } },
-	{ MODKEY|ShiftMask, XK_Return, spawn, SHCMD("~/.st/st") },
+	{ MODKEY|ShiftMask, XK_Return, spawn, SHCMD("urxvtc") },
 	{ MODKEY, XK_b, togglebar, {0} },
 	{ MODKEY, XK_j, focusstack, {.i = +1 } },
 	{ MODKEY, XK_k, focusstack, {.i = -1 } },
@@ -111,9 +110,9 @@ static Key keys[] =
 	{ MODKEY|ShiftMask, XK_q, quit, {0} },
 
 	// Custom Keybindings
-	{ MODKEY, XK_Escape, spawn, SHCMD("xautolock -locknow") },
+	{ MODKEY, XK_Escape, spawn, SHCMD("slock") },
 	{ MODKEY|ShiftMask, XK_grave, spawn, 
-		SHCMD("~/.st/st -e tmux attach-session -d") },
+		SHCMD("urxvtc -sl 0 -e tmux attach-session -d") },
 	{ MODKEY, XK_x, spawn, SHCMD("banish") },
 	{ MODKEY|ShiftMask, XK_t, setlayout, {.v = &layouts[3]} },
 	{ MODKEY|ControlMask, XK_t, setlayout, {.v = &layouts[4]} },

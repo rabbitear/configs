@@ -1,51 +1,33 @@
-# woddfellow2's ratpoison Config
-# by woddfellow2 | http://wlair.us.to/
+# ~/.ratpoisonrc
 
-# Appearance
-set font Terminus-12
 set border 0
 set wingravity c
 set bgcolor black
 set fgcolor green
 set bargravity c
+set font Fixed-12
 
 startup_message off
 set waitcursor 0
+alias lockscreen exec xautolock -locknow
+bind x lockscreen
+
+bind e exec emacsclient -alternate-editor="" -c
 
 # Use urxvt instead of xterm
 bind c exec urxvt
 bind C-c exec urxvt
 bind C-exclam colon exec urxvt -e 
 
-# Lock screen command directly inspired by that of GNU Screen
-alias lockscreen exec xautolock -locknow
-bind x lockscreen
-
-# urxvt/screen, GNU IceCat, and emacsclient keybindings
 bind asciitilde exec urxvt -sl 0 -e screen -dRR
-bind e exec emacsclient -alternate-editor="" -c
-bind M-f exec icecat
+bind M-c exec conkeror
 
-# Rudeness
 rudeness 1
 
-# Resize 1 pixel at a time
 set resizeunit 1
-
-# Display window size(s) in window list
 set winfmt %n%s%t (%Wx%H)
 
-# Switch to twm
 alias float tmpwm twm
 bind bar float
 
-# Banish pointer
 banish
-
-# xmodmap and Dvorak
-bind M-0 exec xmodmap ~/.Xmodmap
-bind M-1 exec setxkbmap us
-bind M-2 exec setxkbmap dvorak
-
-# SSH into Meskarune's Linode
-alias maharani exec urxvt -sl 0 -e ssh -tC woddf2@maharani.meskarune.com screen -dRR
