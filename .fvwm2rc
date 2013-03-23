@@ -4,6 +4,18 @@
 # This config is recommended for use with stock Slackware 14.0, with
 # urxvt <http://www.slackbuilds.org/repository/14.0/system/rxvt-unicode/>.
 # The font used in this config is misc-fixed, which should make it portable.
+#
+# Features:
+# - Sloppy focus
+# - 9 pages
+# - Custom urgency handling
+# - CUA-style keybindings
+# - A few Tango icons
+# - FvwmButtons (swallowed FvwmPager, xclock, FvwmIconMan)
+# - FvwmAnimate
+# - FvwmBanner
+#
+# The only site-specific part is the MenuFvwmLogins menu.
 
 # See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
 IgnoreModifiers L25
