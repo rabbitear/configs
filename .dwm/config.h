@@ -27,19 +27,47 @@ static const char *tags[] =
 	"www",
 	"gvim",
 	"media",
+	"vm",
 	"other"
 };
 
+// Excuse all the QEMU spam, but they all have different classes:
 static const Rule rules[] =
 {
 	{ "URxvt", NULL, NULL, 1 << 0, False, -1 },
-	{ "Gimp", NULL, NULL, 1 << 4, True, -1 },
+	{ "Gimp", NULL, NULL, 1 << 5, True, -1 },
 	{ "Firefox", NULL, NULL, 1 << 1, False, -1 },
 	{ "Gvim", NULL, NULL, 1 << 2, False, -1 },
 	{ "feh", NULL, NULL, 1 << 3, False, -1 },
 	{ "Display", NULL, NULL, 1 << 3, True, -1 },
 	{ "MPlayer", NULL, NULL, 1 << 3, False, -1 },
-	{ NULL, NULL, NULL, 1 << 4, False, -1 },
+	{ "VirtualBox", NULL, NULL, 1 << 4, False, -1 },
+	{ "qemu-system-alpha", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-arm", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-cris", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-i386", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-lm32", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-m68k", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-microblaze", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-microblazeel", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-mips", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-mips64", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-mips64el", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-mipsel", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-or32", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-ppc", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-ppc64", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-ppcemb", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-s390x", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-sh4", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-sh4eb", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-sparc", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-sparc64", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-unicore32", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-x86_64", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-xtensa", NULL, NULL, 1 << 4, True, -1 },
+	{ "qemu-system-xtensaeb", NULL, NULL, 1 << 4, True, -1 },
+	{ NULL, NULL, NULL, 1 << 5, False, -1 },
 };
 
 // Layouts ---------------------------------------------------------------------
