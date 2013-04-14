@@ -153,3 +153,5 @@ static Button buttons[] =
 	{ ClkClientWin, MODKEY, Button1, movemouse, {0} },
 	{ ClkClientWin, MODKEY, Button3, resizemouse, {0} },
 };
+
+// vim: ft=c

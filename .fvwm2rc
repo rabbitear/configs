@@ -16,6 +16,9 @@
 # - FvwmBanner
 #
 # The only site-specific part is the MenuFvwmLogins menu.
+#
+# TODO:
+# - Menu icons
 
 # See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
 IgnoreModifiers L25
@@ -257,8 +260,3 @@ AddToFunc StartFunction
 + I Module FvwmAnimate
 + I Module FvwmBanner
 + I Module FvwmButtons
-
-AddToFunc InitFunction
-+ I exec xscreensaver -no-splash
-+ I exec xmodmap ~/.Xmodmap
-+ I exec xsetroot -solid DarkGrey
