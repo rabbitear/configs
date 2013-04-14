@@ -18,8 +18,8 @@ urxvtd -q -o -f &
 # dwmstatus
 ~/apps/dwmstatus &
 
-# Pointless eye candy is pointless
-feh --bg-center ~/img/01906_stabilis_1440x900.jpg &
+# Set wallpaper
+xsetroot -solid black &
 
 # Banish pointer <https://github.com/woddfellow2/banish>
 banish &

@@ -14,9 +14,6 @@ URxvt.cursorBlink: true
 
 URxvt.scrollBar: false
 
-URxvt.transparent: true
-URxvt.shading: 25
-
 URxvt.fading: 25
 
 ! Colour Scheme {{{
