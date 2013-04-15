@@ -3,6 +3,7 @@
 
 # I do not normally edit this file manually, as doing so is discouraged.
 # 
+# Woah, keeping passwords in cleartext like this is even more insecure now that
 # this lives on Meskarune's Linode. I trust her to leave this file alone,
 # though.
 
@@ -17,6 +18,7 @@ servers = (
     address = "irc.freenode.net";
     chatnet = "freenode";
     port = "6697";
+    password = "[REDACTED]";
     use_ssl = "yes";
     ssl_verify = "yes";
     autoconnect = "yes";
@@ -25,6 +27,7 @@ servers = (
     address = "irc.foonetic.net";
     chatnet = "foonetic";
     port = "6697";
+    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "yes";
   },
@@ -32,19 +35,22 @@ servers = (
     address = "irc.twister-irc.net";
     chatnet = "twister";
     port = "6667";
+    password = "[REDACTED]";
     autoconnect = "yes";
   },
   {
     address = "irc.oftc.net";
     chatnet = "oftc";
     port = "6697";
+    password = "[REDACTED]";
     use_ssl = "yes";
-    autoconnect = "no";
+    autoconnect = "yes";
   },
   {
     address = "irc.rizon.net";
     chatnet = "rizon";
     port = "6697";
+    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "no";
   },
@@ -52,6 +58,7 @@ servers = (
     address = "irc.systemnet.info";
     chatnet = "systemnet";
     port = "6697";
+    password = "[REDACTED]";
     use_ssl = "yes";
     autoconnect = "yes";
   }
@@ -78,11 +85,15 @@ channels = (
     autojoin = "Yes";
   },
   { name = "#defocus"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#hackerhaven"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#freenode"; chatnet = "freenode"; autojoin = "No"; },
+  { name = "##slackware-offtopic"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#linode"; chatnet = "oftc"; autojoin = "No"; },
+  { name = "#moocows"; chatnet = "oftc"; autojoin = "Yes"; },
+  { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "No"; },
   { name = "#wlair"; chatnet = "foonetic"; autojoin = "Yes"; },
   { name = "#xkcd"; chatnet = "foonetic"; autojoin = "Yes"; },
   { name = "#main"; chatnet = "twister"; autojoin = "Yes"; },
-  { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "No"; },
   { name = "#bulbagarden"; chatnet = "systemnet"; autojoin = "Yes"; }
 );
 
@@ -244,12 +255,42 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "#hackerhaven";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##slackware-offtopic";
+        tag = "freenode";
+      }
+    );
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#moocows";
+        tag = "oftc";
+      }
+    );
+  };
+  10 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#xkcd";
         tag = "foonetic";
       }
     );
   };
-  8 = {
+  11 = {
     items = (
       {
         type = "CHANNEL";
@@ -259,7 +300,7 @@ windows = {
       }
     );
   };
-  9 = {
+  12 = {
     items = (
       {
         type = "CHANNEL";
