@@ -28,13 +28,6 @@ DeskTopSize 3x3
 
 # Functions ####################################################################
 
-# Do not move mouse pointer when focusing a window
-DestroyFunc WindowListFunc
-AddToFunc WindowListFunc
-+ I Iconify off
-+ I FlipFocus
-+ I Raise
-
 # Iconify function
 DestroyFunc FuncFvwmMoveOrIconify
 AddToFunc FuncFvwmMoveOrIconify
