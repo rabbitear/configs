@@ -1,0 +1,22 @@
+! woddfellow2's ~/.Xdefaults (volunteer)
+! by woddfellow2 | http://wlair.us.to/
+
+Rxvt.font: -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+Rxvt.reverseVideo: true
+Rxvt.urgentOnBell: true
+Rxvt.visualBell: true
+
+emacs.font: -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+emacs.menuBar: off
+emacs.verticalScrollBars: off
+emacs.toolBar: off
+emacs.internalBorder: 0
+emacs.background: black
+emacs.foreground: grey
+
+XTerm*font: -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+XTerm*reverseVideo: true
+XTerm*altIsNotMeta: true
+XTerm*altSendsEscape: true
+
+Xft.dpi: 96
