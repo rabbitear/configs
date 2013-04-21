@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # woddfellow2's xinitrc (genesis)
 # by woddfellow2 | http://wlair.us.to/
 
