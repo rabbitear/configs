@@ -138,12 +138,10 @@ static Key keys[] =
 	{ MODKEY|ShiftMask, XK_q, quit, {0} },
 
 	// Custom Keybindings
-	{ MODKEY, XK_Escape, spawn, SHCMD("slock") },
-	{ MODKEY|ShiftMask, XK_grave, spawn, 
-		SHCMD("urxvtc -sl 0 -e tmux attach-session -d") },
-	{ MODKEY, XK_x, spawn, SHCMD("banish") },
 	{ MODKEY|ShiftMask, XK_t, setlayout, {.v = &layouts[3]} },
 	{ MODKEY|ControlMask, XK_t, setlayout, {.v = &layouts[4]} },
+	{ MODKEY, XK_Escape, spawn, SHCMD("slock") },
+	{ MODKEY, XK_x, spawn, SHCMD("banish") },
 	{ MODKEY|ShiftMask, XK_f, spawn, SHCMD("firefox") },
 };
 
