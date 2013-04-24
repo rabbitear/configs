@@ -79,8 +79,8 @@ editing forum posts."
 ;; Custom Keybindings (too many?)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(global-set-key (kbd "C-x M-p") 'previous-buffer)
-(global-set-key (kbd "C-x M-n") 'next-buffer)
+(global-set-key (kbd "M-p") 'previous-buffer)
+(global-set-key (kbd "M-n") 'next-buffer)
 
 (global-set-key (kbd "C-x M-b") 'switch-to-other-buffer)
 (global-set-key (kbd "C-x 4 M-b") 'switch-to-other-buffer-other-window)
@@ -100,7 +100,6 @@ editing forum posts."
 (global-set-key (kbd "C-x M-m") 'gnus)
 (global-set-key (kbd "C-x M-w") 'w3m)
 (global-set-key (kbd "C-x M-t") 'twit)
-(global-set-key (kbd "C-x M-i") 'emms)
 
 (global-set-key (kbd "C-x M-a") 'ansi-term)
 
@@ -142,10 +141,6 @@ editing forum posts."
 (setq backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
-;; Fix Tetris and Snake high scores
-(setq tetris-score-file "~/.emacs.d/tetris-scores"
-      snake-score-file "~/.emacs.d/snake-scores")
-
 ;; Emacs-w3m
 (require 'w3m-load)
 (setq w3m-use-cookies t)
@@ -169,16 +164,6 @@ editing forum posts."
 (require 'epa-file)
 
 (require 'nnrss)
-
-;; EMMS
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
-
-(require 'emms-mode-line)
-(require 'emms-playing-time)
-(emms-mode-line 1)
-(emms-playing-time 1)
 
 ;; C
 (setq c-default-style "bsd"
@@ -225,17 +210,8 @@ editing forum posts."
 ;; FVWM
 (require 'fvwm-mode)
 
-;; ratpoison
-(require 'ratpoison)
-
 ;; StumpWM
 (load "~/.emacs.d/lisp/stumpwm-mode.el")
-
-;; Weblogger Mode
-(require 'weblogger)
-(setq weblogger-config-alist
-      (quote (("default" "http://wlair.us.to/blog/xmlrpc.php" "wlair" "" "1")
-	      ("wlair" "http://wlair.us.to/blog/xmlrpc.php" "wlair" "" "1"))))
 
 ;; Calendar (sunrise/sunset, 24-hour time, ISO 8601)
 (setq calendar-latitude 40.57667
