@@ -51,7 +51,6 @@ alias c="clear"
 alias sprunge="curl -F sprunge=@- http://sprunge.us/"
 alias sprungecap="$HOME/scripts/cap"
 alias volunteer="ssh -t woddf2@volunteer screen -dRR"
-alias maharani="ssh -tC woddf2@66.175.208.202 screen -dRR"
 alias tesseract="ssh -tC woddf2@69.164.219.208 screen -dRR"
 
 if [[ -z "$DISPLAY" ]] && [[ -z "$TMUX" ]]; then
