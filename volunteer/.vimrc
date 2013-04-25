@@ -9,6 +9,7 @@ syntax on
 set showcmd
 set ruler
 set splitbelow
+set splitright
 
 set directory=~/.vim/swap
 
