@@ -37,7 +37,7 @@ then
 	ssh-add < /dev/null
 fi
 
-urxvtc -sl 0 -e tmux attach-session -d &
+urxvtc -sl 0 -hold -e tmux attach-session -d &
 
 # Start the WM
 until ~/.dwm/dwm; do true; done
