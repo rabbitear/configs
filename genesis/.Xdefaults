@@ -1,16 +1,19 @@
-! urxvt ------------------------------------------------------------------------
+! rxvt-unicode -----------------------------------------------------------------
 
+! ^G
+URxvt.urgentOnBell: true
+URxvt.visualBell: true
+
+! Clipboard
+URxvt.perl-ext-common: keyboard-select
+URxvt.keysym.Menu: perl:keyboard-select:activate
+
+! Appearance
 URxvt.geometry: 80x25
 
 URxvt.font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
 
 URxvt.colorBD: #FFFFFF
-
-URxvt.perl-ext-common: keyboard-select
-URxvt.keysym.Menu: perl:keyboard-select:activate
-
-URxvt.urgentOnBell: true
-URxvt.visualBell: true
 
 URxvt.cursorUnderline: true
 URxvt.cursorBlink: true
