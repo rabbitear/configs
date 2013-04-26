@@ -78,8 +78,6 @@ DestroyMenu MenuFvwmLogins
 AddToMenu MenuFvwmLogins
 + "&genesis" Exec exec \
   urxvt -sl 0 -hold -title genesis -e ssh -t genesis tmux attach-session -d
-+ "&maharani" Exec exec \
-  urxvt -sl 0 -hold -title maharani -e ssh -tC 66.175.208.202 screen -dRR
 + "&tesseract" Exec exec \
   urxvt -sl 0 -hold -title tesseract -e ssh -tC 69.164.219.208 screen -dRR
 
