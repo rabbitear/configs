@@ -1,0 +1,49 @@
+# woddfellow2's GNU Screen Config (Meskarune's VPS)
+# by woddfellow2 | http://wlair.us.to/
+
+# Disable visual bell
+vbell off
+
+# Crash protection
+autodetach on
+
+# Do not display splash screen
+startup_message off
+
+# Scrollback buffer
+defscrollback 10000
+
+# Status line
+hardstatus off
+hardstatus string "screen@%H: %n %t (%h)"
+
+# This way, if a background window beeps, I will not miss it;
+# note the ^G at the beginning
+bell_msg "^GBell in window %n"
+activity "^GActivity in window %n"
+
+# Add day of week and change date to ISO 8601 format
+time "%D %Y-%m-%d %c:%s %H%? %l%?"
+
+# Lock terminal after 15 minutes
+idle 900 lockscreen
+
+# She didn't bother to install Emacs. Let's steal one of its common prefix keys!
+escape ^Xx
+
+# Restore lockscreen keybindings
+bind a lockscreen
+bind ^a lockscreen
+
+# In case Meskarune goes crazy (this will prevent her from attaching my screen
+# session):
+password ...
+
+# Startup Applications
+screen -t shell 0
+screen -t irc 1 irssi
+screen -t mail 2 mutt
+screen -t www 3 elinks
+screen -t twitter -M 4 ttytter
+
+select 1
