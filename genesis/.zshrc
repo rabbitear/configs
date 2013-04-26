@@ -49,7 +49,6 @@ alias wx-radar="$HOME/scripts/wx-radar"
 alias elinks-porn="elinks -config-file ~/.elinks/elinks.conf -no-home"
 alias c="clear"
 alias sprunge="curl -F sprunge=@- http://sprunge.us/"
-alias sprungecap="$HOME/scripts/cap"
 alias volunteer="ssh -t woddf2@volunteer screen -dRR"
 alias tesseract="ssh -tC woddf2@69.164.219.208 screen -dRR"
 
