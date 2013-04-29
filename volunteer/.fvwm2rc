@@ -10,12 +10,12 @@
 # - 9 pages
 # - Custom urgency handling
 # - CUA-style keybindings
-# - A few Tango icons
-# - FvwmButtons (swallowed FvwmPager, xclock, FvwmIconMan)
+# - FvwmButtons (swallowed xclock, xload, FvwmPager)
 # - FvwmAnimate
 # - FvwmBanner
 #
-# The only site-specific part is the MenuFvwmLogins menu.
+# The only site-specific parts are the MenuFvwmLogins menu, the gVim icon,
+# and the SeaMonkey (Mozilla) icon.
 #
 # TODO:
 # - Menu icons
@@ -153,7 +153,6 @@ AddToMenu MenuGTFOExit
 # Mouse Bindings ###############################################################
 
 Mouse 0 1 A Menu MenuFvwmWindowOps Close
-Mouse 0 3 A WindowShade
 Mouse 0 2 A FuncFvwmMaximize
 Mouse 0 4 A Iconify
 
@@ -197,14 +196,12 @@ MenuStyle * fvwm, MenuColorset 3
 # Window list
 MenuStyle WindowList MenuColorset 3
 
-# Look for icons in /usr/share/pixmaps and /usr/share/icons
-ImagePath /usr/share/pixmaps:/usr/share/icons
+# Icons
+ImagePath /usr/share/pixmaps:/usr/share/icons:$HOME/.fvwm/icons
 
 # Application-specific Style
-Style *rxvt Icon Tango/scalable/apps/terminal.svg, \
-      MiniIcon Tango/16x16/apps/terminal.png, MWMBorder, MWMButtons
+Style *rxvt Icon xterm-color_48x48.xpm, MWMBorder, MWMButtons
 Style MPlayer Icon hicolor/48x48/apps/mplayer.png
-Style feh Icon Tango/scalable/mimetypes/image.svg
 
 # FvwmIdent
 *FvwmIdent: Back navy
@@ -216,33 +213,26 @@ Style feh Icon Tango/scalable/mimetypes/image.svg
 *FvwmPager: MiniIcons
 *FvwmPager: Balloons
 *FvwmPager: BalloonColorset * 2
-
-# FvwmIconMan
-*FvwmIconMan: ManagerGeometry 1x7
-*FvwmIconMan: Action Mouse 1 N sendcommand Focus
-*FvwmIconMan: Action Mouse 2 N sendcommand "Iconify"
-*FvwmIconMan: Action Mouse 3 N sendcommand "FvwmIdent"
-*FvwmIconMan: Background DimGrey
-*FvwmIconMan: Foreground white
-*FvwmIconMan: IconButton up black maroon
-*FvwmIconMan: PlainButton up white DimGrey
-*FvwmIconMan: SelectButton down white DimGrey
-*FvwmIconMan: FocusButton up yellow firebrick
-*FvwmIconMan: FocusAndSelectButton down yellow firebrick
-*FvwmIconMan: Font -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*
+*FvwmPager: Back Grey
+*FvwmPager: Fore Black
 
 # FvwmButtons
 DestroyModuleConfig FvwmButtons: *
 Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
-      ClickToFocus, FixedPosition, BorderWidth 5, !Handles
-*FvwmButtons: Back DimGrey
-*FvwmButtons: Rows 8
-*FvwmButtons: Columns 1
-*FvwmButtons: Geometry 191x300-0+0
-*FvwmButtons: (1x4, Swallow "FvwmPager" `Module FvwmPager 0 0`)
-*FvwmButtons: (1x1, Swallow "xclock" `Exec exec xclock -update 1 -digital \
-       -twentyfour -strftime \"%F %T\" -face Fixed-11 -bg black -fg green`)
-*FvwmButtons: (1x3, Swallow "FvwmIconMan" `Module FvwmIconMan`)
+      ClickToFocus, FixedPosition, !Borders, !Handles
+*FvwmButtons: Back Grey
+*FvwmButtons: Rows 1
+*FvwmButtons: Columns 6
+*FvwmButtons: Geometry 600x100-0-0
+*FvwmButtons: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+*FvwmButtons: screen xterm-color_48x48.xpm Exec exec urxvt -sl 0 -e screen -dRR
+*FvwmButtons: gVim vim48x48.xpm Exec exec gvim
+*FvwmButtons: SeaMonkey mozilla.xpm Exec exec seamonkey
+*FvwmButtons: (1x1, Swallow "xclock" \
+	`Exec exec xclock -update 1 -bg Grey -fg Black`)
+*FvwmButtons: (1x1, Swallow "xload" `Exec exec \
+	xload -bg Grey -fg Black -fn -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*`)
+*FvwmButtons: (1x1, Swallow "FvwmPager" `Module FvwmPager 0 0`)
 
 # FvwmBanner
 Style FvwmBanner StaysOnTop, !Title
