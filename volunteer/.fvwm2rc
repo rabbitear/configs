@@ -64,10 +64,11 @@ Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 *FvwmIdent: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 
 # FvwmPager
-*FvwmPager: Font "none"
-*FvwmPager: MiniIcons
+*FvwmPager: SmallFont -misc-fixed-medium-r-*-*-8-*-*-*-*-*-*-*
 *FvwmPager: Balloons
-*FvwmPager: BalloonColorset * 2
+*FvwmPager: BalloonFore White
+*FvwmPager: BalloonBack DimGrey
+*FvwmPager: BalloonBorderColor Black
 *FvwmPager: Back Grey
 *FvwmPager: Fore Black
 
