@@ -14,169 +14,18 @@
 # - FvwmAnimate
 # - FvwmBanner
 #
-# The only site-specific parts are the MenuFvwmLogins menu, the gVim icon,
-# and the SeaMonkey (Mozilla) icon.
+# The only site-specific parts are the MenuFvwmLogins menu (including its
+# icons), the gVim icon, and the SeaMonkey (Mozilla) icon.
 #
 # The gVim icon is available from the Vim source tarball.
 # The Mozilla icon is from an old Mozilla source tarball, available from:
 # http://ftp.mozilla.org/pub/mozilla.org/mozilla/releases/mozilla1.8b1/source/
-#
-# TODO:
-# - Menu icons
 
 # See FVWM FAQ entry 5.5 <http://fvwm.org/documentation/faq/#toc_5.5>
 IgnoreModifiers L25
 
 # Virtual Desktops
 DeskTopSize 3x3
-
-# Functions ####################################################################
-
-# Iconify function
-DestroyFunc FuncFvwmMoveOrIconify
-AddToFunc FuncFvwmMoveOrIconify
-+ I Raise
-+ M Move
-+ D Iconify
-
-DestroyFunc FuncFvwmMaximize
-AddToFunc FuncFvwmMaximize
-+ M Maximize   0 100
-+ H Maximize   0 100
-+ C Maximize   0  80
-+ D Maximize 100 100
-
-Mouse 1 I A FuncFvwmMoveOrIconify
-
-# Urgency (This raises the window and turns its border yellow.)
-DestroyFunc UrgencyFunc
-AddToFunc UrgencyFunc
-+ I ThisWindow (!Focused) WindowStyle HilightColorset 2
-+ I ThisWindow (!Focused) WindowStyle Colorset 2
-+ I ThisWindow (!Focused) Raise
-
-DestroyFunc UrgencyDoneFunc
-AddToFunc UrgencyDoneFunc
-+ I WindowStyle Colorset 0
-+ I WindowStyle HilightColorset 1
-
-# Menus ########################################################################
-
-# Root Menu
-DestroyMenu MenuFvwmRoot
-AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
-+ "&T. URxvt" Exec exec urxvt
-+ "" Nop
-+ "&S. GNU Screen" Exec exec urxvt -sl 0 -e screen -dRR
-+ "&R. $[gt.Remote Logins]" Popup MenuFvwmLogins
-+ "" Nop
-+ "&A. $[gt.Applications]" Popup MenuFvwmUtilities
-+ "" Nop
-+ "&F. $[gt.FVWM]" Popup MenuFvwmFvwm
-+ "&W. $[gt.Window Ops]" Popup MenuFvwmWindowOps
-+ "" Nop
-+ "&X. $[gt.Leave]" Popup MenuGTFO
-
-# Remote Logins Menu (Disclaimer: This menu is esoteric to my personal LAN.)
-DestroyMenu MenuFvwmLogins
-AddToMenu MenuFvwmLogins
-+ "&genesis" Exec exec \
-  urxvt -sl 0 -hold -title genesis -e ssh -t genesis tmux attach-session -d
-+ "&tesseract" Exec exec \
-  urxvt -sl 0 -hold -title tesseract -e ssh -tC 69.164.219.208 screen -dRR
-
-# Applications Menu
-DestroyMenu MenuFvwmUtilities
-AddToMenu MenuFvwmUtilities
-+ "X&Term" Exec exec xterm
-+ "&Rxvt" Exec exec rxvt
-+ "" Nop
-+ "g&Vim" Exec exec gvim
-+ "&Emacs" Exec exec emacs
-+ "" Nop
-+ "Sea&Monkey" Exec exec seamonkey
-+ "SeaMonkey (&Private)" Exec exec seamonkey -P private -new-instance
-+ "" Nop
-+ "The &GIMP" Exec exec gimp
-+ "" Nop
-+ "&Audacious" Exec exec audacious
-
-# FVWM Menu
-DestroyMenu MenuFvwmFvwm
-AddToMenu MenuFvwmFvwm
-+ "Fvwm&Console" Module FvwmConsole
-+ "&Edit Config" Exec exec gvim ~/.fvwm/.fvwm2rc
-
-# Window Ops Menu
-DestroyMenu MenuFvwmWindowOps
-AddToMenu MenuFvwmWindowOps
-+ "$[gt.&Move]" Move
-+ "$[gt.&Resize]" Resize
-+ "$[gt.R&aise]" Raise
-+ "$[gt.&Lower]" Lower
-+ "$[gt.(De)&Iconify]" Iconify
-+ "$[gt.S&hade]" WindowShade
-+ "$[gt.(Un)&Stick]" Stick
-+ "$[gt.(Un)Ma&ximize]" FuncFvwmMaximize
-+ "" Nop
-+ "$[gt.I&nformation]" FvwmIdent
-+ "" Nop
-+ "$[gt.Move to &Workspace...]" Popup MenuMoveToWorkspace
-+ "" Nop
-+ "$[gt.&Delete]" Delete
-+ "$[gt.&Close]" Close
-+ "$[gt.Destroy]" Destroy
-
-# "Move to Workspace..." menu
-DestroyMenu MenuMoveToWorkspace
-AddToMenu MenuMoveToWorkspace
-+ "&1. $[gt.Northwest]" MoveToPage 0 0
-+ "&2. $[gt.North]" MoveToPage 1 0
-+ "&3. $[gt.Northeast]" MoveToPage 2 0
-+ "&4. $[gt.West]" MoveToPage 0 1
-+ "&5. $[gt.Central]" MoveToPage 1 1
-+ "&6. $[gt.East]" MoveToPage 2 1
-+ "&7. $[gt.Southwest]" MoveToPage 0 2
-+ "&8. $[gt.South]" MoveToPage 1 2
-+ "&9. $[gt.Southeast]" MoveToPage 2 2
-
-# Leave Menu
-DestroyMenu MenuGTFO
-AddToMenu MenuGTFO
-+ "&X. $[gt.XScreenSaver]" Exec exec xscreensaver-command -lock
-+ "&L. $[gt.xlock]" Exec exec xlock
-+ "" Nop
-+ "&R. $[gt.Restart FVWM]" Restart
-+ "&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
-
-# Exit FVWM Menu
-DestroyMenu MenuGTFOExit
-AddToMenu MenuGTFOExit
-+ "$[gt.Really Exit]" Quit
-
-# Mouse Bindings ###############################################################
-
-Mouse 0 1 A Menu MenuFvwmWindowOps Close
-Mouse 0 2 A FuncFvwmMaximize
-Mouse 0 4 A Iconify
-
-Mouse 3 TSIF A RaiseLower
-
-Mouse 2 R A Menu MenuFvwmWindowOps Nop
-Mouse 3 R A WindowList
-
-# Keybindings (CUA-inspired) ###################################################
-
-Key F1 A M Menu MenuFvwmRoot
-Key F3 A M Menu MenuFvwmWindowOps
-Key F4 A M Close
-Key F7 A M Move
-Key F8 A M Resize
-Key F9 A M Iconify
-Key F10 A M FuncFvwmMaximize
-Key F12 A M WindowShade
-
-Key Space A M Menu MenuFvwmWindowOps
 
 # Style ########################################################################
 
@@ -201,7 +50,8 @@ MenuStyle * fvwm, MenuColorset 3
 MenuStyle WindowList MenuColorset 3
 
 # Icons
-ImagePath /usr/share/pixmaps:/usr/share/icons:$HOME/.fvwm/icons
+ImagePath /usr/share/pixmaps:/usr/share/icons:/usr/include/X11/pixmaps
+ImagePath +:$[FVWM_USERDIR]/icons
 
 # Application-specific Style
 Style XTerm Icon xterm-color_48x48.xpm
@@ -241,6 +91,153 @@ Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
 
 # FvwmBanner
 Style FvwmBanner StaysOnTop, !Title
+
+# Functions ####################################################################
+
+# Iconify function
+DestroyFunc FuncFvwmMoveOrIconify
+AddToFunc FuncFvwmMoveOrIconify
++ I Raise
++ M Move
++ D Iconify
+
+DestroyFunc FuncFvwmMaximize
+AddToFunc FuncFvwmMaximize
++ M Maximize   0 100
++ H Maximize   0 100
++ C Maximize   0  80
++ D Maximize 100 100
+
+Mouse 1 I A FuncFvwmMoveOrIconify
+
+# Urgency (This raises the window and turns its border yellow.)
+DestroyFunc UrgencyFunc
+AddToFunc UrgencyFunc
++ I ThisWindow (!Focused) WindowStyle HilightColorset 2
++ I ThisWindow (!Focused) WindowStyle Colorset 2
++ I ThisWindow (!Focused) Raise
+
+DestroyFunc UrgencyDoneFunc
+AddToFunc UrgencyDoneFunc
++ I WindowStyle Colorset 0
++ I WindowStyle HilightColorset 1
+
+# Menus ########################################################################
+
+# Root Menu
+DestroyMenu MenuFvwmRoot
+AddToMenu MenuFvwmRoot "$[gt.Root Menu]" Title
++ "%mini-term.xpm%&T. URxvt" Exec exec urxvt
++ "" Nop
++ "%mini-term.xpm%&S. GNU Screen" Exec exec urxvt -sl 0 -e screen -dRR
++ "%mini-term.xpm%&R. $[gt.Remote Logins]" Popup MenuFvwmLogins
++ "" Nop
++ "%mini-x2.xpm%&A. $[gt.Applications]" Popup MenuFvwmUtilities
++ "" Nop
++ "%mini-modules.xpm%&F. $[gt.FVWM]" Popup MenuFvwmFvwm
++ "%mini-windows.xpm%&W. $[gt.Window Ops]" Popup MenuFvwmWindowOps
++ "" Nop
++ "%mini-stop.xpm%&X. $[gt.Leave]" Popup MenuGTFO
+
+# Remote Logins Menu (Disclaimer: This menu is esoteric to my personal LAN.)
+DestroyMenu MenuFvwmLogins
+AddToMenu MenuFvwmLogins
++ "%archlinux.xpm%&genesis" Exec exec \
+  urxvt -sl 0 -hold -title genesis -e ssh -t genesis tmux attach-session -d
++ "%hackerhaven.xpm%&tesseract" Exec exec \
+  urxvt -sl 0 -hold -title tesseract -e ssh -tC 69.164.219.208 screen -dRR
+
+# Applications Menu
+DestroyMenu MenuFvwmUtilities
+AddToMenu MenuFvwmUtilities
++ "%mini-term.xpm%X&Term" Exec exec xterm
++ "%mini-term.xpm%&Rxvt" Exec exec rxvt
++ "" Nop
++ "%vim16x16.xpm%g&Vim" Exec exec gvim
++ "%hicolor/16x16/apps/emacs.png%&Emacs" Exec exec emacs
++ "" Nop
++ "%mini-nscape.xpm%Sea&Monkey" Exec exec seamonkey
++ "%mini-nscape.xpm%SeaMonkey (&Private)" Exec exec seamonkey -P private -new-instance
++ "" Nop
++ "%mini-paint.xpm%The &GIMP" Exec exec gimp
++ "" Nop
++ "%mini-cdlabel.xpm%&Audacious" Exec exec audacious
+
+# FVWM Menu
+DestroyMenu MenuFvwmFvwm
+AddToMenu MenuFvwmFvwm
++ "%mini-term.xpm%Fvwm&Console" Module FvwmConsole
++ "%mini-edit.xpm%&Edit Config" Exec exec gvim ~/.fvwm/.fvwm2rc
+
+# Window Ops Menu
+DestroyMenu MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps
++ "%mini-move.xpm%$[gt.&Move]" Move
++ "%mini-resize.xpm%$[gt.&Resize]" Resize
++ "%mini-raise.xpm%$[gt.R&aise]" Raise
++ "%mini-lower.xpm%$[gt.&Lower]" Lower
++ "$[gt.(De)&Iconify]" Iconify
++ "$[gt.S&hade]" WindowShade
++ "%mini.stickpressed.xpm%$[gt.(Un)&Stick]" Stick
++ "%mini-max1.xpm%$[gt.(Un)Ma&ximize]" FuncFvwmMaximize
++ "" Nop
++ "%mini-book1.xpm%$[gt.I&nformation]" FvwmIdent
++ "" Nop
++ "%mini-desktop.xpm%$[gt.Move to &Workspace...]" Popup MenuMoveToWorkspace
++ "" Nop
++ "%mini-cross.xpm%$[gt.&Delete]" Delete
++ "%mini-bomb.xpm%$[gt.Destroy]" Destroy
+
+# "Move to Workspace..." menu
+DestroyMenu MenuMoveToWorkspace
+AddToMenu MenuMoveToWorkspace
++ "&1. $[gt.Northwest]" MoveToPage 0 0
++ "&2. $[gt.North]" MoveToPage 1 0
++ "&3. $[gt.Northeast]" MoveToPage 2 0
++ "&4. $[gt.West]" MoveToPage 0 1
++ "&5. $[gt.Central]" MoveToPage 1 1
++ "&6. $[gt.East]" MoveToPage 2 1
++ "&7. $[gt.Southwest]" MoveToPage 0 2
++ "&8. $[gt.South]" MoveToPage 1 2
++ "&9. $[gt.Southeast]" MoveToPage 2 2
+
+# Leave Menu
+DestroyMenu MenuGTFO
+AddToMenu MenuGTFO
++ "%mini-lock.xpm%&X. $[gt.XScreenSaver]" Exec exec xscreensaver-command -lock
++ "%mini-lock.xpm%&L. $[gt.xlock]" Exec exec xlock
++ "" Nop
++ "%mini-turn.xpm%&R. $[gt.Restart FVWM]" Restart
++ "%mini-exclam.xpm%&Q. $[gt.Exit FVWM]" Popup MenuGTFOExit
+
+# Exit FVWM Menu
+DestroyMenu MenuGTFOExit
+AddToMenu MenuGTFOExit
++ "%mini-exclam.xpm%$[gt.Really Exit]" Quit
+
+# Mouse Bindings ###############################################################
+
+Mouse 0 1 A Menu MenuFvwmWindowOps Close
+Mouse 0 2 A FuncFvwmMaximize
+Mouse 0 4 A Iconify
+
+Mouse 3 TSIF A RaiseLower
+
+Mouse 2 R A Menu MenuFvwmWindowOps Nop
+Mouse 3 R A WindowList
+
+# Keybindings (CUA-inspired) ###################################################
+
+Key F1 A M Menu MenuFvwmRoot
+Key F3 A M Menu MenuFvwmWindowOps
+Key F4 A M Close
+Key F7 A M Move
+Key F8 A M Resize
+Key F9 A M Iconify
+Key F10 A M FuncFvwmMaximize
+Key F12 A M WindowShade
+
+Key Space A M Menu MenuFvwmWindowOps
 
 # Startup Applications #########################################################
 
