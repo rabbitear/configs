@@ -8,7 +8,7 @@ set ruler
 set splitbelow
 set splitright
 
-set directory=~/.vim/swap
+set directory=$HOME/.vim/swap
 
 " Fix tab completion
 set wildmenu
@@ -22,7 +22,7 @@ map ZQ <Nop>
 autocmd FileType mail set textwidth=64
 
 " Custom command:
-command PostUpdate :read !~/scripts/post-update.sh
+command PostUpdate :read !~/scripts/post-update
 
 " Pointless eye candy is pointless
 colorscheme polemon

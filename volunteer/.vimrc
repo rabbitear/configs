@@ -11,7 +11,7 @@ set ruler
 set splitbelow
 set splitright
 
-set directory=~/.vim/swap
+set directory=$HOME/.vim/swap
 
 " Fix tab completion
 set wildmenu
