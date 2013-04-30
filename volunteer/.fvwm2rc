@@ -25,14 +25,20 @@
 IgnoreModifiers L25
 
 # Virtual Desktops
-DeskTopSize 3x3
+# -- start of orig --
+#DeskTopSize 3x3
+# --- end of orig ---
+DeskTopSize 4x2
 
 # Style ########################################################################
 
 Style * SloppyFocus
 
 # to fill in from the left inside of the right change r to l
-Style * IconBox 5 5 -605 -5, IconFill r b
+# -- start of orig --
+#Style * IconBox 5 5 -605 -5, IconFill r b
+# --- end of orig ---
+Style * IconBox 5 5 -485 -5, IconFill r b
 
 DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 EdgeResistance 375
@@ -58,6 +64,7 @@ ImagePath /usr/share/pixmaps:/usr/share/icons:/usr/include/X11/pixmaps
 ImagePath +:$[FVWM_USERDIR]/icons
 
 # Application-specific Style
+# because of the Thumbnail these icon's may not be seen
 Style XTerm Icon xterm-color_48x48.xpm
 Style *rxvt Icon xterm-color_48x48.xpm, MWMBorder, MWMButtons
 Style MPlayer Icon hicolor/48x48/apps/mplayer.png
@@ -68,7 +75,8 @@ Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 *FvwmIdent: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 
 # FvwmPager
-*FvwmPager: SmallFont -misc-fixed-medium-r-*-*-8-*-*-*-*-*-*-*
+#*FvwmPager: SmallFont -misc-fixed-medium-r-*-*-8-*-*-*-*-*-*-*
+*FvwmPager: SmallFont none
 *FvwmPager: Balloons
 *FvwmPager: BalloonFore White
 *FvwmPager: BalloonBack DimGrey
@@ -82,17 +90,29 @@ Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
       ClickToFocus, FixedPosition, !Borders, !Handles
 *FvwmButtons: Back Grey
 *FvwmButtons: Rows 1
-*FvwmButtons: Columns 6
-*FvwmButtons: Geometry 600x100-0-0
+# -- start of orig --
+#*FvwmButtons: Columns 6
+# --- end of orig ---
+*FvwmButtons: Columns 8
+# -- start of orig --
+#*FvwmButtons: Geometry 600x100-0-0
+# --- end of orig ---
+*FvwmButtons: Geometry 480x60-0-0
 *FvwmButtons: Font -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
-*FvwmButtons: screen xterm-color_48x48.xpm Exec exec urxvt -sl 0 -e screen -dRR
-*FvwmButtons: gVim vim48x48.xpm Exec exec gvim
-*FvwmButtons: SeaMonkey mozilla.xpm Exec exec seamonkey
+# -- start of orig --
+#*FvwmButtons: screen xterm-color_48x48.xpm Exec exec urxvt -sl 0 -e screen -dRR
+#*FvwmButtons: gVim vim48x48.xpm Exec exec gvim
+#*FvwmButtons: SeaMonkey mozilla.xpm Exec exec seamonkey
+# --- end of orig ---
+*FvwmButtons: (1x1, Icon xterm-color_48x48.xpm, Action Exec exec urxvt -sl 0 -e screen -dRR)
+*FvwmButtons: (1x1, Icon vim48x48.xpm, Action Exec exec gvim)
+*FvwmButtons: (1x1, Icon mozilla.xpm, Action Exec exec firefox)
 *FvwmButtons: (1x1, Swallow "xclock" \
 	`Exec exec xclock -update 1 -bg Grey -fg Black`)
 *FvwmButtons: (1x1, Swallow "xload" `Exec exec \
-	xload -bg Grey -fg Black -fn -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*`)
-*FvwmButtons: (1x1, Swallow "FvwmPager" `Module FvwmPager 0 0`)
+	xload -label "_XLoAd_" -bg Grey -fg Black \
+    -fn -misc-fixed-bold-r-*-*-13-*-*-*-*-*-*-*`)
+*FvwmButtons: (3x1, Swallow "FvwmPager" `Module FvwmPager 0 0`)
 
 # FvwmBanner
 Style FvwmBanner StaysOnTop, !Title
@@ -103,13 +123,11 @@ Style FvwmBanner StaysOnTop, !Title
 # Functions ####################################################################
 
 # Iconify function
-
 DestroyFunc FuncFvwmMoveOrIconify
 AddToFunc FuncFvwmMoveOrIconify
 + I Raise
 + M Move
 + D DeiconifyAndRearrange
-
 
 DestroyFunc FuncFvwmMaximize
 AddToFunc FuncFvwmMaximize
@@ -118,11 +136,13 @@ AddToFunc FuncFvwmMaximize
 + C Maximize   0  80
 + D Maximize 100 100
 
+# See FVWM FAQ entry 3.15 <http://fvwm.org/documentation/faq/#3.15>
 DestroyFunc DeiconifyAndRearrange
 AddToFunc DeiconifyAndRearrange
 + C Iconify off
 + C All (CurrentPage, Iconic) PlaceAgain Icon
 
+# See FVWM FAQ entry 7.18 <http://fvwm.org/documentation/faq/#7.18>
 DestroyFunc Thumbnail
 AddToFunc Thumbnail
 + I Raise
