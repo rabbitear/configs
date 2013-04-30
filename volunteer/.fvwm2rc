@@ -17,6 +17,10 @@
 # The only site-specific parts are the MenuFvwmLogins menu, the gVim icon,
 # and the SeaMonkey (Mozilla) icon.
 #
+# The gVim icon is available from the Vim source tarball.
+# The Mozilla icon is from an old Mozilla source tarball, available from:
+# http://ftp.mozilla.org/pub/mozilla.org/mozilla/releases/mozilla1.8b1/source/
+#
 # TODO:
 # - Menu icons
 
@@ -200,6 +204,7 @@ MenuStyle WindowList MenuColorset 3
 ImagePath /usr/share/pixmaps:/usr/share/icons:$HOME/.fvwm/icons
 
 # Application-specific Style
+Style XTerm Icon xterm-color_48x48.xpm
 Style *rxvt Icon xterm-color_48x48.xpm, MWMBorder, MWMButtons
 Style MPlayer Icon hicolor/48x48/apps/mplayer.png
 
