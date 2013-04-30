@@ -34,6 +34,9 @@ Style * SloppyFocus
 Style * IconBox 0 -10 -280 -1
 
 DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
+EdgeResistance 375
+Style * EdgeMoveResistance 375
+EdgeThickness 2
 
 # Colours
 Colorset 0 fg White, bg DimGrey
