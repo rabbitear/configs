@@ -93,14 +93,18 @@ Style FvwmButtons !Title, Sticky, WindowListSkip, CirculateSkipIcon, \
 # FvwmBanner
 Style FvwmBanner StaysOnTop, !Title
 
+# FvwmEvent - mostly for deiconifying the icon thumbnails
+*FvwmEvent deiconify DeThumbnail
+
 # Functions ####################################################################
 
 # Iconify function
+
 DestroyFunc FuncFvwmMoveOrIconify
 AddToFunc FuncFvwmMoveOrIconify
 + I Raise
 + M Move
-+ D Iconify
++ D Iconify off
 
 DestroyFunc FuncFvwmMaximize
 AddToFunc FuncFvwmMaximize
@@ -108,6 +112,28 @@ AddToFunc FuncFvwmMaximize
 + H Maximize   0 100
 + C Maximize   0  80
 + D Maximize 100 100
+
+DestroyFunc DeiconifyAndRearrange
+AddToFunc DeiconifyAndRearrange
++ C Iconify off
++ C All (CurrentPage, Iconic) PlaceAgain Icon
+
+DestroyFunc Thumbnail
+AddToFunc Thumbnail
++ I Raise
++ I ThisWindow (!Shaded, Iconifiable, !Iconic) PipeRead \
+   "xwd -silent -id $[w.id] | convert -scale 64 -frame 1x1 \
+   -mattecolor black -quality 0 xwd:- \
+   png:/tmp/fvwmicon.tmp.$[w.id].png \
+   && echo WindowStyle IconOverride, \
+   Icon /tmp/fvwmicon.tmp.$[w.id].png \
+   || echo Nop"
++ I Iconify
+
+DestroyFunc DeThumbnail
+AddToFunc DeThumbnail
++ I Exec rm -f /tmp/fvwmicon.tmp.$[w.id].png
++ I DestroyWindowStyle 
 
 Mouse 1 I A FuncFvwmMoveOrIconify
 
@@ -221,7 +247,7 @@ AddToMenu MenuGTFOExit
 
 Mouse 0 1 A Menu MenuFvwmWindowOps Close
 Mouse 0 2 A FuncFvwmMaximize
-Mouse 0 4 A Iconify
+Mouse 0 4 A Thumbnail
 
 Mouse 3 TSIF A RaiseLower
 
@@ -235,7 +261,7 @@ Key F3 A M Menu MenuFvwmWindowOps
 Key F4 A M Close
 Key F7 A M Move
 Key F8 A M Resize
-Key F9 A M Iconify
+Key F9 A M Thumbnail
 Key F10 A M FuncFvwmMaximize
 Key F12 A M WindowShade
 
@@ -247,3 +273,4 @@ AddToFunc StartFunction
 + I Module FvwmAnimate
 + I Module FvwmBanner
 + I Module FvwmButtons
++ I Module FvwmEvent
