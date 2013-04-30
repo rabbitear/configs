@@ -31,7 +31,8 @@ DeskTopSize 3x3
 
 Style * SloppyFocus
 
-Style * IconBox 0 -10 -280 -1
+# to fill in from the left inside of the right change r to l
+Style * IconBox 5 5 -605 -5, IconFill r b
 
 DefaultFont -misc-fixed-medium-r-*-*-15-*-*-*-*-*-*-*
 EdgeResistance 375
@@ -107,7 +108,8 @@ DestroyFunc FuncFvwmMoveOrIconify
 AddToFunc FuncFvwmMoveOrIconify
 + I Raise
 + M Move
-+ D Iconify off
++ D DeiconifyAndRearrange
+
 
 DestroyFunc FuncFvwmMaximize
 AddToFunc FuncFvwmMaximize
@@ -207,7 +209,7 @@ AddToMenu MenuFvwmWindowOps
 + "%mini-resize.xpm%$[gt.&Resize]" Resize
 + "%mini-raise.xpm%$[gt.R&aise]" Raise
 + "%mini-lower.xpm%$[gt.&Lower]" Lower
-+ "$[gt.(De)&Iconify]" Iconify
++ "$[gt.&Iconify]" Thumbnail 
 + "$[gt.S&hade]" WindowShade
 + "%mini.stickpressed.xpm%$[gt.(Un)&Stick]" Stick
 + "%mini-max1.xpm%$[gt.(Un)Ma&ximize]" FuncFvwmMaximize
