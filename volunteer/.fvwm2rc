@@ -157,7 +157,8 @@ AddToMenu MenuFvwmUtilities
 + "%hicolor/16x16/apps/emacs.png%&Emacs" Exec exec emacs
 + "" Nop
 + "%mini-nscape.xpm%Sea&Monkey" Exec exec seamonkey
-+ "%mini-nscape.xpm%SeaMonkey (&Private)" Exec exec seamonkey -P private -new-instance
++ "%mini-nscape.xpm%SeaMonkey (&Private)" \
+  Exec exec seamonkey -P private -new-instance
 + "" Nop
 + "%mini-paint.xpm%The &GIMP" Exec exec gimp
 + "" Nop
